@@ -2,7 +2,7 @@
   "name": "purdue-reviews",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "client:dev": "vite",
     "server:dev": "nodemon src/server.js",
@@ -11,7 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mongoose": "^7.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
