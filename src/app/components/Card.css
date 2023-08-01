@@ -1,0 +1,15 @@
+.card-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 15em;
+  height: 15em;
+  background-color: #ceb888;
+  box-shadow: 2px 2px 1px 1px #808080;
+}
+
+.boilermaker {
+  width: 2.5em;
+  height: 3em;
+}
