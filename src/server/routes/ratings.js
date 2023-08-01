@@ -1,10 +1,10 @@
 const express = require("express");
 const {
-  createReview,
+  createRating,
   getRatings,
-  getReview,
-  deleteReview,
-  updateReview,
+  getRating,
+  deleteRating,
+  updateRating,
 } = require("../controllers/ratingController");
 
 const router = express.Router();
@@ -13,15 +13,15 @@ const router = express.Router();
 router.get("/", getRatings);
 
 // GET single review
-router.get("/:id", getReview);
+router.get("/:id", getRating);
 
 // POST a review
-router.post("/", createReview);
+router.post("/", createRating);
 
 // DELETE a review
-router.delete("/:id", deleteReview);
+router.delete("/:id", deleteRating);
 
 // UPDATE a review
-router.patch("/:id", updateReview);
+router.patch("/:id", updateRating);
 
 module.exports = router;
