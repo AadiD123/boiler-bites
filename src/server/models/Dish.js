@@ -1,0 +1,28 @@
+const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema;
+
+const dishSchema = new Schema(
+  {
+    nameOfFood: {
+      type: String,
+      required: true,
+    },
+    diningCourt: {
+      type: String,
+      required: true,
+    },
+    averageRating: { 
+        type: Number, 
+        default: 0 
+    },
+    numberOfRatings: {
+        type: Number,
+        default: 0
+    },
+  }
+);
+
+const Dish = mongoose.model("Dish", dishSchema);
+
+module.exports = Dish;
