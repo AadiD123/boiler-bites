@@ -1,28 +1,37 @@
-import { useState } from 'react'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Home from "./pages/Home";
+import DiningCourtPage from "./pages/DiningCourtPage";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={viteLogo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+    <Router>
+      <img className="background-img" src="src/app/assets/purdue.jpeg" />
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route
+          path="/earhart"
+          element={<DiningCourtPage diningCourt="earhart" />}
+        />
+        <Route path="/ford" element={<DiningCourtPage diningCourt="ford" />} />
+        <Route
+          path="/hillenbrand"
+          element={<DiningCourtPage diningCourt="hillenbrand" />}
+        />
+        <Route
+          path="/wiley"
+          element={<DiningCourtPage diningCourt="wiley" />}
+        />
+        <Route
+          path="/windsor"
+          element={<DiningCourtPage diningCourt="windsor" />}
+        />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
