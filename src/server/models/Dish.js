@@ -15,7 +15,7 @@ const dishSchema = new Schema({
     type: Number,
     default: 0,
   },
-  numberOfRatings: {
+  numRatings: {
     type: Number,
     default: 0,
   },
