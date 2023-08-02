@@ -12,7 +12,7 @@ const StarRating = (props) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ dish: props.dish, stars: selectedRating }),
+        body: JSON.stringify({ dish: props.id, stars: selectedRating }),
       });
 
       if (response.ok) {

@@ -25,7 +25,7 @@ export default function DiningCourtPage(props) {
         <Card diningCourt={props.diningCourt} />
         <div className="diningCourt-food">
           {dishes &&
-            dishes.map((dish) => <Dish key={dish.id} dish={dish.dish} />)}
+            dishes.map((dish) => <Dish key={dish.id} id={dish.id} dish={dish.dish} />)}
         </div>
       </div>
     </>
