@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const StarRating = (props) => {
   const [rating, setRating] = useState(0);
@@ -7,10 +7,10 @@ const StarRating = (props) => {
     setRating(selectedRating);
 
     try {
-      const response = await fetch('http://localhost:4000/api/ratings', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/api/ratings", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ dish: props.id, stars: selectedRating }),
       });
@@ -18,10 +18,10 @@ const StarRating = (props) => {
       if (response.ok) {
         console.log(`User's rating: ${selectedRating}`);
       } else {
-        console.error('Failed to send rating to the server.');
+        console.error("Failed to send rating to the server.");
       }
     } catch (error) {
-      console.error('Error occurred while sending rating:', error);
+      console.error("Error occurred while sending rating:", error);
     }
   };
 
@@ -31,7 +31,7 @@ const StarRating = (props) => {
         <span
           key={star}
           onClick={() => handleStarClick(star)}
-          style={{ cursor: 'pointer', color: star <= rating ? 'gold' : 'gray' }}
+          style={{ cursor: "pointer", color: star <= rating ? "gold" : "gray" }}
         >
           ★
         </span>

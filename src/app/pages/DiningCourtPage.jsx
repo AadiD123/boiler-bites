@@ -13,7 +13,6 @@ export default function DiningCourtPage(props) {
 
       if (response.ok) {
         setDishes(json);
-        console.log(json);
       }
     };
     fetchCurrentFood();
@@ -25,7 +24,9 @@ export default function DiningCourtPage(props) {
         <Card diningCourt={props.diningCourt} />
         <div className="diningCourt-food">
           {dishes &&
-            dishes.map((dish) => <Dish key={dish.id} id={dish.id} dish={dish.dish} />)}
+            dishes.map((dish) => (
+              <Dish key={dish._id} id={dish._id} dish={dish.dish} />
+            ))}
         </div>
       </div>
     </>
