@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Star.css";
 
 const StarRating = (props) => {
   const [rating, setRating] = useState(0);
@@ -31,9 +32,19 @@ const StarRating = (props) => {
         <span
           key={star}
           onClick={() => handleStarClick(star)}
-          style={{ cursor: "pointer", color: star <= rating ? "gold" : "gray" }}
+          style={{
+            cursor: "pointer",
+          }}
         >
-          ★
+          <img
+            src={
+              star <= rating
+                ? "src/app/assets/boilermaker.png"
+                : "src/app/assets/boilermaker gray.png"
+            }
+            alt={`Star ${star}`}
+            style={{ display: "flex", width: "20px", height: "20px" }}
+          />
         </span>
       ))}
     </div>
