@@ -2,6 +2,7 @@ const express = require("express");
 const {
   createDish,
   getDishes,
+  getDCDishes,
   getDish,
   deleteDish,
   updateDish,
@@ -11,6 +12,8 @@ const router = express.Router();
 
 // GET all reviews
 router.get("/", getDishes);
+
+router.get("/:diningCourt", getDCDishes);
 
 // GET single review
 router.get("/:id", getDish);

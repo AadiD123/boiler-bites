@@ -14,20 +14,20 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route
           path="/earhart"
-          element={<DiningCourtPage diningCourt="earhart" />}
+          element={<DiningCourtPage diningCourt="Earhart" />}
         />
-        <Route path="/ford" element={<DiningCourtPage diningCourt="ford" />} />
+        <Route path="/ford" element={<DiningCourtPage diningCourt="Ford" />} />
         <Route
           path="/hillenbrand"
-          element={<DiningCourtPage diningCourt="hillenbrand" />}
+          element={<DiningCourtPage diningCourt="Hillenbrand" />}
         />
         <Route
           path="/wiley"
-          element={<DiningCourtPage diningCourt="wiley" />}
+          element={<DiningCourtPage diningCourt="Wiley" />}
         />
         <Route
           path="/windsor"
-          element={<DiningCourtPage diningCourt="windsor" />}
+          element={<DiningCourtPage diningCourt="Windsor" />}
         />
       </Routes>
     </Router>
