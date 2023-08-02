@@ -13,19 +13,22 @@ export default function DiningCourtPage(props) {
 
       if (response.ok) {
         setDishes(json);
-        console.log(json);
       }
     };
     fetchCurrentFood();
   }, []);
 
   return (
-    <div className="diningCourt-cont">
-      <Card diningCourt={props.diningCourt} />
-      <div className="diningCourt-food">
-        {dishes &&
-          dishes.map((dish) => <Dish key={dish.id} dish={dish.dish} />)}
+    <>
+      <div className="diningCourt-cont">
+        <Card diningCourt={props.diningCourt} />
+        <div className="diningCourt-food">
+          {dishes &&
+            dishes.map((dish) => (
+              <Dish key={dish._id} id={dish._id} dish={dish.dish} />
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -19,6 +19,11 @@ const dishSchema = new Schema({
     type: Number,
     default: 0,
   },
+  daysServed: [
+    {
+      type: String,
+    }
+  ]
 });
 
 const Dish = mongoose.model("Dish", dishSchema);
