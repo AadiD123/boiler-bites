@@ -5,7 +5,7 @@ export default function Card(props) {
   return (
     <div className="card-cont">
       <img src={`src/app/assets/${props.diningCourt}.png`} />
-      <Rating />
+      <Rating diningCourt={props.diningCourt} />
     </div>
   );
 }
