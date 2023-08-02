@@ -8,19 +8,19 @@ export default function Home() {
     <div className="home">
       <div className="home-card-cont">
         <Link to="/earhart">
-          <Card diningCourt="earhart" />
+          <Card diningCourt="Earhart" />
         </Link>
 
         <Link to="/ford">
-          <Card diningCourt="ford" />
+          <Card diningCourt="Ford" />
         </Link>
 
         <Link to="/hillenbrand">
-          <Card diningCourt="hillenbrand" />
+          <Card diningCourt="Hillenbrand" />
         </Link>
 
         <Link to="/wiley">
-          <Card diningCourt="wiley" />
+          <Card diningCourt="Wiley" />
         </Link>
 
         <Link to="/windsor">

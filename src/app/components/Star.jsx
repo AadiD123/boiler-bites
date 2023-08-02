@@ -23,8 +23,29 @@ const StarRating = (props) => {
     } catch (error) {
       console.error("Error occurred while sending rating:", error);
     }
+
+    try {
+        const response = await fetch(`http://localhost:4000/api/dishes/${props.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ numRatings: props.num + 1, 
+                                 averageRating: (props.avg * props.num + selectedRating) / (props.num + 1) }),
+        });
+  
+        if (response.ok) {
+          console.log(`User's rating: ${selectedRating}`);
+        } else {
+          console.error("Failed to change dish.");
+        }
+    } catch (error) {
+        console.error("Error occurred while changing dish:", error);
+    }
   };
 
+  
+  
   return (
     <div>
       {[1, 2, 3, 4, 5].map((star) => (
