@@ -1,0 +1,21 @@
+.card-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 15.5em;
+  height: 15.5em;
+  background-color: #ceb888;
+  box-shadow: 2px 2px 1px 1px #808080;
+}
+
+.card-cont:active,
+.card-cont:hover,
+.card-cont:focus {
+  outline: none;
+}
+
+.boilermaker {
+  width: 2.5em;
+  height: 3em;
+}
