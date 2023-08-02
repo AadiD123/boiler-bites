@@ -20,12 +20,14 @@ export default function DiningCourtPage(props) {
   }, []);
 
   return (
-    <div className="diningCourt-cont">
-      <Card diningCourt={props.diningCourt} />
-      <div className="diningCourt-food">
-        {dishes &&
-          dishes.map((dish) => <Dish key={dish.id} dish={dish.dish} />)}
+    <>
+      <div className="diningCourt-cont">
+        <Card diningCourt={props.diningCourt} />
+        <div className="diningCourt-food">
+          {dishes &&
+            dishes.map((dish) => <Dish key={dish.id} dish={dish.dish} />)}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
