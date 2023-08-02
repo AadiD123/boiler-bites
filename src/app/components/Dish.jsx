@@ -1,5 +1,6 @@
 import "./Dish.css";
 import Rating from "./Rating";
+import Star from "./Star";
 
 export default function Dish(props) {
   return (
@@ -7,7 +8,7 @@ export default function Dish(props) {
       <h4>{props.dish}</h4>
       <div>
         <p>Avg Rating</p>
-        <Rating />
+        <Star dish={props.dish}/>
       </div>
     </div>
   );
