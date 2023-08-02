@@ -25,7 +25,7 @@ export default function DiningCourtPage(props) {
         <div className="diningCourt-food">
           {dishes &&
             dishes.map((dish) => (
-              <Dish key={dish._id} id={dish._id} dish={dish.dish} />
+              <Dish key={dish._id} id={dish._id} dish={dish.dish} num={dish.numRatings} avg={dish.averageRating} />
             ))}
         </div>
       </div>
