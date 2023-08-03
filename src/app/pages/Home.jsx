@@ -27,7 +27,7 @@ export default function Home() {
           <Card diningCourt="windsor" />
         </Link>
       </div>
-      <div className="bg-black w-full h-full"></div>
+      {/* <div className="bg-black w-full h-full"></div> */}
     </div>
   );
 }
