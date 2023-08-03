@@ -28,10 +28,6 @@ const getDish = async (req, res) => {
 const getDCDishes = async (req, res) => {
   const { diningCourt } = req.params;
 
-  // if (!mongoose.Types.String.isValid(diningCourt)) {
-  //   return res.status(404).json({ error: "No such dining court" });
-  // }
-
   const dishes = await Dish.find({ diningCourt }).sort({ createdAt: -1 });
 
   if (!dishes) {
@@ -39,12 +35,6 @@ const getDCDishes = async (req, res) => {
   }
 
   res.status(200).json(dishes);
-
-  // const { id } = req.params;
-
-  // const dish = await Dish.findById(id);
-
-  // res.status(200).json(dish);
 };
 
 // create a review
