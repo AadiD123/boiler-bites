@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
   return (
     <div className="nav-cont">
-      <h1>Boiler Bites</h1>
+      <Link to="/">
+        <h1>Boiler Bites</h1>
+      </Link>
     </div>
   );
 }

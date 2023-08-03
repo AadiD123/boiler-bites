@@ -4,6 +4,7 @@
   align-items: center;
 }
 .diningCourt-food {
+  padding: 2em;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -12,4 +13,5 @@
   width: 40em;
   min-height: 15.5em;
   background-color: #ceb888;
+  box-shadow: 2px 2px 1px 1px #808080;
 }
