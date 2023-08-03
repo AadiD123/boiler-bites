@@ -8,9 +8,7 @@ export default function DiningCourtPage(props) {
 
   useEffect(() => {
     const fetchCurrentFood = async () => {
-<<<<<<< HEAD
       const response = await fetch(`http://localhost:4000/api/dishes/${props.diningCourt}`);
->>>>>>> 630e63863b284d2a722367250a45b5550e106b7c
       const json = await response.json();
 
       if (response.ok) {
