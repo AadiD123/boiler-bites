@@ -7,6 +7,9 @@ import dotenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import datetime
+import time
+start_time = time.time()
+
 
 dotenv.load_dotenv()
 
@@ -37,17 +40,29 @@ foodLocations = ["Ford", "Earhart", "Hillenbrand", "Wiley", "Windsor",
       
 date = str(datetime.datetime.today()).split()[0].split('-')
 
-for location in foodLocations:
-    url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/' 
-    driver.get(url) 
-    elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
-    if elements:
-        for element in elements:
-            dish = element.text
-            if not collection.find_one({"dish": dish}):
-                collection.insert_one({"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0})
-            
+# for location in foodLocations:
+#     #url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/'
+#     url = 'https://dining.purdue.edu/menus/Earhart/2023/8/12/Dinner' 
+#     driver.get(url) 
+#     elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
+#     if elements:
+#         for element in elements:
+#             dish = element.text
+#             print(dish)
+#             if not collection.find_one({"dish": dish, "diningCourt": location }):
+#                 collection.insert_one({"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0})
 
+url = 'https://dining.purdue.edu/menus/Earhart/2023/8/12/Dinner' 
+driver.get(url) 
+elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
+if elements:
+    for element in elements:
+        dish = element.text
+        print(dish)
+        if not collection.find_one({"dish": dish, "diningCourt": "Earhart" }):
+            collection.insert_one({"dish": dish, "diningCourt": "Earhart", "averageRating": 0, "numRatings": 0})
+            
+print("--- %s seconds ---" % (time.time() - start_time))
 
 
 
