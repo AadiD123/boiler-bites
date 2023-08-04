@@ -50,7 +50,7 @@ export default function TimingDropdown({ onMealChange }) {
                   )}
                   onClick={() => {
                     setSelectedItem("Breakfast");
-                    onMealChange(selectedItem);
+                    onMealChange("Breakfast");
                   }}
                 >
                   Breakfast
@@ -67,7 +67,7 @@ export default function TimingDropdown({ onMealChange }) {
                   )}
                   onClick={() => {
                     setSelectedItem("Lunch");
-                    onMealChange(selectedItem);
+                    onMealChange("Lunch");
                   }}
                 >
                   Lunch
@@ -84,7 +84,7 @@ export default function TimingDropdown({ onMealChange }) {
                   )}
                   onClick={() => {
                     setSelectedItem("Dinner");
-                    onMealChange(selectedItem);
+                    onMealChange("Dinner");
                   }}
                 >
                   Dinner

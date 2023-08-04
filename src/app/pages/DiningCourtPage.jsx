@@ -43,9 +43,6 @@ export default function DiningCourtPage(props) {
     <>
       <div className="diningCourt-cont">
         <Dropdown onMealChange={handleMealChange} />
-        {/* <button onClick={() => setMeal("Breakfast")}>Breakfast</button>
-        <button onClick={() => setMeal("Lunch")}>Lunch</button>
-        <button onClick={() => setMeal("Dinner")}>Dinner</button> */}
         <Card diningCourt={props.diningCourt} />
 
         <div className="diningCourt-food">
