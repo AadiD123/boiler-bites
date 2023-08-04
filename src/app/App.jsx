@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 function App() {
   return (
     <Router>
-      {/* <img className="background-img" src="src/app/assets/purdue.jpg" /> */}
+      <img className="background-img" src="src/app/assets/purdue.jpg" />
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Home />} />

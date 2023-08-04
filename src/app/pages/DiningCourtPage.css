@@ -16,7 +16,7 @@
   max-width: 40em;
   min-height: 10em;
   background-color: #cfb991;
-  box-shadow: 2px 2px 1px 1px #808080;
+  box-shadow: 1px 3px 5px 1px #808080;
   margin-bottom: 5em;
   /* flex-wrap: wrap; */
 }

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  height: 100vh;
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   font-family: "CustomFont";
   src: url("src/app/assets/Acumin-BdItPro.otf");
