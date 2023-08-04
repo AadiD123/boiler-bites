@@ -24,44 +24,47 @@ except Exception as e:
     print(e)
 
 database = client['test']
-collection = database['dishes']
+dcollection = database['dishes']
+tcollection = database['timings']
 
  
 options = webdriver.ChromeOptions()
-options.headless = True 
+options.add_argument('--headless') 
 options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 chrome_driver_binary = "/usr/local/bin/chromedriver"
-driver = webdriver.Chrome(chrome_driver_binary, chrome_options=options)
+driver = webdriver.Chrome(chrome_driver_binary, options=options)
  
 foodLocations = ["Ford", "Earhart", "Hillenbrand", "Wiley", "Windsor", 
                  "1Bowl", "Pete's%20Za", "The%20Burrow", "The%20Gathering%20Place", 
                  "Earhart%20On-the-GO!", "Hillenbrand%20On-the-GO!", "Wiley%20On-the-GO!", "Windsor%20On-the-GO!"]
  
-      
+meals = ["Breakfast", "Lunch", "Dinner"]
+
 date = str(datetime.datetime.today()).split()[0].split('-')
 
-# for location in foodLocations:
-#     #url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/'
-#     url = 'https://dining.purdue.edu/menus/Earhart/2023/8/12/Dinner' 
-#     driver.get(url) 
-#     elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
-#     if elements:
-#         for element in elements:
-#             dish = element.text
-#             print(dish)
-#             if not collection.find_one({"dish": dish, "diningCourt": location }):
-#                 collection.insert_one({"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0})
+for location in foodLocations:
+    for meal in meals:
+        url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/' + meal + '/'
 
-url = 'https://dining.purdue.edu/menus/Earhart/2023/8/12/Dinner' 
-driver.get(url) 
-elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
-if elements:
-    for element in elements:
-        dish = element.text
-        print(dish)
-        if not collection.find_one({"dish": dish, "diningCourt": "Earhart" }):
-            collection.insert_one({"dish": dish, "diningCourt": "Earhart", "averageRating": 0, "numRatings": 0})
-            
+        driver.get(url) 
+        elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
+        if elements:
+            dish_ids = []
+            for element in elements:
+                dish = element.text
+                if not dcollection.find_one({"dish": dish, "diningCourt": location }):
+                    id = dcollection.insert_one({"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0})
+                else:
+                    id = dcollection.find_one({"dish": dish, "diningCourt": location })["_id"]
+                dish_ids.append(id)
+            tcollection.insert_one({
+                "year": date[0], 
+                "month": date[1], 
+                "day": date[2], 
+                "meal": meal, 
+                "dishes": dish_ids
+                })
+
 print("--- %s seconds ---" % (time.time() - start_time))
 
 
