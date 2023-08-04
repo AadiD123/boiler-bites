@@ -27,7 +27,7 @@ const getTiming = async (req, res) => {
 
 // create a review
 const createTiming = async (req, res) => {
-  const { year, month, day, meal, dishes } = req.body;
+  const { diningCourt, year, month, day, meal, dishes } = req.body;
 
   // add to db
 

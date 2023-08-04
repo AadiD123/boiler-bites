@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const timingSchema = new mongoose.Schema({
+    diningCourt: { type: String, required: true },
     year: { type: Number, required: true },
     month: { type: Number, required: true },
     day: { type: Number, required: true },

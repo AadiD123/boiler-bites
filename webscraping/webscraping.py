@@ -56,8 +56,9 @@ for location in foodLocations:
                     id = dcollection.insert_one({"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0})
                 else:
                     id = dcollection.find_one({"dish": dish, "diningCourt": location })["_id"]
-                dish_ids.append(id)
+                dish_ids.append(id.inserted_id)
             tcollection.insert_one({
+                "diningCourt": location,
                 "year": date[0], 
                 "month": date[1], 
                 "day": date[2], 
