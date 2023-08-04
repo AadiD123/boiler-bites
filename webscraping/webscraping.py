@@ -40,37 +40,34 @@ foodLocations = ["Ford", "Earhart", "Hillenbrand", "Wiley", "Windsor",
  
 meals = ["Breakfast", "Lunch", "Dinner"]
 
-date = str(datetime.datetime.today()).split()[0].split('-')
+def scrape_date(date):
+    for location in foodLocations:
+        for meal in meals:
+            url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/' + meal + '/'
 
-for location in foodLocations:
-    for meal in meals:
-        url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/' + meal + '/'
+            driver.get(url) 
+            elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
+            if elements:
+                dish_ids = []
+                for element in elements:
+                    dish = element.text
+                    existing_dish = dcollection.find_one({"dish": dish, "diningCourt": location })
+                    if not existing_dish:
+                        new_dish_data = {"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0}
+                        result = dcollection.insert_one(new_dish_data)
+                        id = result.inserted_id
+                    else:
+                        id = existing_dish["_id"]
+                    dish_ids.append(id)
+                tcollection.insert_one({
+                    "diningCourt": location,
+                    "year": date[0], 
+                    "month": date[1], 
+                    "day": date[2], 
+                    "meal": meal, 
+                    "dishes": dish_ids
+                    })
 
-        driver.get(url) 
-        elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
-        if elements:
-            dish_ids = []
-            for element in elements:
-                dish = element.text
-                existing_dish = dcollection.find_one({"dish": dish, "diningCourt": location })
-                if not existing_dish:
-                    new_dish_data = {"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0}
-                    result = dcollection.insert_one(new_dish_data)
-                    id = result.inserted_id
-                else:
-                    id = existing_dish["_id"]
-                dish_ids.append(id)
-            tcollection.insert_one({
-                "diningCourt": location,
-                "year": date[0], 
-                "month": date[1], 
-                "day": date[2], 
-                "meal": meal, 
-                "dishes": dish_ids
-                })
-
-print("--- %s seconds ---" % (time.time() - start_time))
-
-
+scrape_date(["2023", "08", "12"])
 
 
