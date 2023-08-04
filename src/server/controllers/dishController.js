@@ -8,7 +8,7 @@ const getDishes = async (req, res) => {
   res.status(200).json(dish);
 };
 
-// get a single dis
+// get a single dish
 const getDish = async (req, res) => {
   const { id } = req.params;
 
