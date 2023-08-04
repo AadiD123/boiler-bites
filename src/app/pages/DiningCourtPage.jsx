@@ -2,14 +2,14 @@ import "./DiningCourtPage.css";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import Dish from "../components/Dish";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import Dropdown from "../components/Dropdown";
 
 export default function DiningCourtPage(props) {
   const [dishes, setDishes] = useState([]);
   const [meal, setMeal] = useState("");
 
   useEffect(() => {
-    if (meal != "") {
+    if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
           `http://localhost:4000/api/timings/${props.diningCourt}/${meal}`
@@ -17,59 +17,35 @@ export default function DiningCourtPage(props) {
         const json = await response.json();
 
         if (response.ok) {
-          console.log(json);
           var dishesId = json["0"].dishes;
-          dishesId.forEach((dishId) => {
-            const fetchDish = async () => {
-              const dishResponse = await fetch(
-                "http://localhost:4000/api/dishes/" + dishId
-              );
-              const dishJson = await dishResponse.json();
-              console.log(dishJson);
-              // if (dishResponse.ok) {
-              //   setDishes((dishes2) => [...dishes2, dishJson.dish]);
-              // }
-            };
-            fetchDish();
+
+          const dishPromises = dishesId.map(async (dishId) => {
+            const dishResponse = await fetch(
+              "http://localhost:4000/api/dishes/" + dishId
+            );
+            const dishJson = await dishResponse.json();
+            return dishJson;
           });
+
+          const newDishes = await Promise.all(dishPromises);
+          setDishes(newDishes);
         }
       };
       fetchCurrentFood();
     }
   }, [meal]);
 
+  const handleMealChange = (selectedMeal) => {
+    setMeal(selectedMeal); // Update the meal state
+  };
+
   return (
     <>
       <div className="diningCourt-cont">
-        {/* <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-          <Dropdown.Item
-            onClick={() => {
-              setMeal("Breakfast");
-              console.log(meal);
-            }}
-          >
-            Breakfast
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              setMeal("Lunch");
-              console.log(meal);
-            }}
-          >
-            Lunch
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              setMeal("Dinner");
-              console.log(meal);
-            }}
-          >
-            Dinner
-          </Dropdown.Item>
-        </DropdownButton> */}
-        <button onClick={() => setMeal("Breakfast")}>Breakfast</button>
+        <Dropdown onMealChange={handleMealChange} />
+        {/* <button onClick={() => setMeal("Breakfast")}>Breakfast</button>
         <button onClick={() => setMeal("Lunch")}>Lunch</button>
-        <button onClick={() => setMeal("Dinner")}>Dinner</button>
+        <button onClick={() => setMeal("Dinner")}>Dinner</button> */}
         <Card diningCourt={props.diningCourt} />
 
         <div className="diningCourt-food">
