@@ -16,6 +16,10 @@ export default function DiningCourtPage(props) {
         );
         const json = await response.json();
 
+        if (json.length === 0) {
+          setDishes([]);
+        }
+
         if (response.ok) {
           var dishesId = json["0"].dishes;
 
