@@ -47,11 +47,7 @@ const createTiming = async (req, res) => {
 
   try {
     const timing = await Timing.create({
-      year,
-      month,
-      day,
-      meal,
-      dishes,
+        diningCourt, year, month, day, meal, dishes
     });
     res.status(200).json(timing);
   } catch (error) {
