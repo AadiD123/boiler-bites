@@ -10,13 +10,15 @@ const getDishes = async (req, res) => {
 
 // get a single dish
 const getDish = async (req, res) => {
+  console.log("getDish");
+
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such dish" });
   }
 
-  const dish = await Dish.findById(id);
+  const dish = await Dish.findOne({ _id: id });
 
   if (!dish) {
     return res.status(404).json({ error: "No such dish" });
@@ -25,17 +27,17 @@ const getDish = async (req, res) => {
   res.status(200).json(dish);
 };
 
-const getDCDishes = async (req, res) => {
-  const { diningCourt } = req.params;
+// const getDCDishes = async (req, res) => {
+//   const { diningCourt } = req.params;
 
-  const dishes = await Dish.find({ diningCourt }).sort({ createdAt: -1 });
+//   const dishes = await Dish.find({ diningCourt }).sort({ createdAt: -1 });
 
-  if (!dishes) {
-    return res.status(404).json({ error: "No such dining Court" });
-  }
+//   if (!dishes) {
+//     return res.status(404).json({ error: "No such dining Court" });
+//   }
 
-  res.status(200).json(dishes);
-};
+//   res.status(200).json(dishes);
+// };
 
 // create a review
 const createDish = async (req, res) => {
@@ -58,6 +60,7 @@ const createDish = async (req, res) => {
 
 // delete a review
 const deleteDish = async (req, res) => {
+  console.log("deleteDish");
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -67,7 +70,7 @@ const deleteDish = async (req, res) => {
   const dish = await Dish.findOneAndDelete({ _id: id });
 
   if (!dish) {
-    return res.status(404).json({ error: "No such dis" });
+    return res.status(404).json({ error: "No such dish" });
   }
 
   res.status(200).json(dish);
@@ -94,7 +97,7 @@ module.exports = {
   createDish,
   getDish,
   getDishes,
-  getDCDishes,
+  //getDCDishes,
   deleteDish,
   updateDish,
 };

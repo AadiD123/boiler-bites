@@ -1,10 +1,11 @@
 const express = require("express");
 module.exports = {
-    createTiming,
-    getTimings,
-    getTiming,
-    deleteTiming,
-    updateTiming,
+  createTiming,
+  getTimings,
+  getTiming,
+  getTimingDishes,
+  deleteTiming,
+  updateTiming,
 } = require("../controllers/timingController");
 
 const router = express.Router();
@@ -14,6 +15,8 @@ router.get("/", getTimings);
 
 // GET single review
 router.get("/:id", getTiming);
+
+router.get("/:diningCourt/:meal", getTimingDishes);
 
 // POST a review
 router.post("/", createTiming);
