@@ -8,3 +8,7 @@
   margin: 1em;
   border-bottom: 1px solid gray;
 }
+
+.dish-title {
+  max-width: 10em;
+}

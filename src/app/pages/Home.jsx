@@ -24,7 +24,7 @@ export default function Home() {
         </Link>
 
         <Link to="/windsor">
-          <Card diningCourt="windsor" />
+          <Card diningCourt="Windsor" />
         </Link>
       </div>
       {/* <div className="bg-black w-full h-full"></div> */}
