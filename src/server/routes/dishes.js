@@ -15,8 +15,8 @@ router.get("/", getDishes);
 
 router.get("/:diningCourt", getDCDishes);
 
-// GET single review
-router.get("/:id", getDish);
+// GET single dish
+router.get("/:_id", getDish);
 
 // POST a review
 router.post("/", createDish);

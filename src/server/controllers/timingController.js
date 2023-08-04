@@ -25,6 +25,20 @@ const getTiming = async (req, res) => {
   res.status(200).json(timing);
 };
 
+const getTimingDishes = async (req, res) => {
+  const { diningCourt, meal } = req.params;
+
+  const dishes = await Timing.find({ diningCourt, meal }).sort({
+    createdAt: -1,
+  });
+
+  if (!dishes) {
+    return res.status(404).json({ error: "No dishes served at this time" });
+  }
+
+  res.status(200).json(dishes);
+};
+
 // create a review
 const createTiming = async (req, res) => {
   const { diningCourt, year, month, day, meal, dishes } = req.body;
@@ -33,7 +47,11 @@ const createTiming = async (req, res) => {
 
   try {
     const timing = await Timing.create({
-        year, month, day, meal, dishes
+      year,
+      month,
+      day,
+      meal,
+      dishes,
     });
     res.status(200).json(timing);
   } catch (error) {
@@ -81,4 +99,5 @@ module.exports = {
   getTiming,
   deleteTiming,
   updateTiming,
+  getTimingDishes,
 };
