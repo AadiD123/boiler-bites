@@ -1,3 +1,7 @@
 .bm-cont {
   display: flex;
 }
+
+.avgrating-bm {
+  height: 2em;
+}

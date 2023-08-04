@@ -1,3 +1,7 @@
 .star-cont {
   display: flex;
 }
+
+.star-bm {
+  height: 3.5em;
+}

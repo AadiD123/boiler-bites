@@ -6,7 +6,7 @@ import Dropdown from "../components/Dropdown";
 
 export default function DiningCourtPage(props) {
   const [dishes, setDishes] = useState([]);
-  const [meal, setMeal] = useState("");
+  const [meal, setMeal] = useState("Breakfast");
 
   useEffect(() => {
     if (meal !== "") {
@@ -42,8 +42,8 @@ export default function DiningCourtPage(props) {
   return (
     <>
       <div className="diningCourt-cont">
-        <Dropdown onMealChange={handleMealChange} />
         <Card diningCourt={props.diningCourt} />
+        <Dropdown onMealChange={handleMealChange} />
 
         <div className="diningCourt-food">
           {dishes !== null ? (
