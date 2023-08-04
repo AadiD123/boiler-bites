@@ -52,11 +52,14 @@ for location in foodLocations:
             dish_ids = []
             for element in elements:
                 dish = element.text
-                if not dcollection.find_one({"dish": dish, "diningCourt": location }):
-                    id = dcollection.insert_one({"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0})
+                existing_dish = dcollection.find_one({"dish": dish, "diningCourt": location })
+                if not existing_dish:
+                    new_dish_data = {"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0}
+                    result = dcollection.insert_one(new_dish_data)
+                    id = result.inserted_id
                 else:
-                    id = dcollection.find_one({"dish": dish, "diningCourt": location })["_id"]
-                dish_ids.append(id.inserted_id)
+                    id = existing_dish["_id"]
+                dish_ids.append(id)
             tcollection.insert_one({
                 "diningCourt": location,
                 "year": date[0], 
