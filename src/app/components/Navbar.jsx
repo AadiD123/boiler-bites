@@ -7,6 +7,10 @@ export default function Navbar() {
       <Link to="/">
         <h1>Boiler Bites</h1>
       </Link>
+
+      <Link to="/about">
+        <p>About</p>
+      </Link>
     </div>
   );
 }

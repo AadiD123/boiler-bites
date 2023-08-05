@@ -1,4 +1,8 @@
 .nav-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 1rem;
   margin-left: 2rem;
+  margin-right: 2rem;
 }

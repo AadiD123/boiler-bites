@@ -9,6 +9,7 @@ export default function Rating(props) {
       <img className="avgrating-bm" src="src/app/assets/boilermaker.png" />
       <img className="avgrating-bm" src="src/app/assets/boilermaker.png" />
       <img className="avgrating-bm" src="src/app/assets/boilermaker.png" />
+      <img className="avgrating-bm" src="src/app/assets/boilermaker.png" />
     </div>
   );
 }
