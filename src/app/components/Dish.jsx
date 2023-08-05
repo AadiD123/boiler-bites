@@ -9,7 +9,7 @@ export default function Dish(props) {
         <h4 className="dish-title">{props.dish}</h4>
         <div>
           <p>Avg Rating</p>
-          <Rating id={props.id} avg={props.avg} />
+          {/* <Rating id={props.id} avg={props.avg} /> */}
         </div>
       </div>
       <Star id={props.id} num={props.num} avg={props.avg} />
