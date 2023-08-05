@@ -20,22 +20,22 @@ def scrape_date(date, driver, dcollection, tcollection):
             url = 'https://dining.purdue.edu/menus/' + location + '/' + date[0] + '/' + date[1] + '/' + date[2] + '/' + meal + '/'
 
             driver.get(url) 
-            if driver.find_elements(By.CLASS_NAME, 'menu--problem'):
-                return False
-            else:
-                elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
-                if elements:
-                    dish_ids = []
-                    for element in elements:
-                        dish = element.text
-                        existing_dish = dcollection.find_one({"dish": dish, "diningCourt": location })
-                        if not existing_dish:
-                            new_dish_data = {"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0}
-                            result = dcollection.insert_one(new_dish_data)
-                            id = result.inserted_id
-                        else:
-                            id = existing_dish["_id"]
-                        dish_ids.append(id)
+            elements = driver.find_elements(By.CLASS_NAME, 'station-item-text')
+            if elements:
+                dish_ids = []
+                for element in elements:
+                    dish = element.text
+                    existing_dish = dcollection.find_one({"dish": dish, "diningCourt": location })
+                    if not existing_dish:
+                        new_dish_data = {"dish": dish, "diningCourt": location, "averageRating": 0, "numRatings": 0}
+                        result = dcollection.insert_one(new_dish_data)
+                        id = result.inserted_id
+                    else:
+                        id = existing_dish["_id"]
+                    dish_ids.append(id)
+                if tcollection.find_one({"diningCourt": location, "year": date[0], "month": date[1], "day": date[2], "meal": meal}):
+                    tcollection.update_one({"diningCourt": location, "year": date[0], "month": date[1], "day": date[2], "meal": meal}, {"$set": {"dishes": dish_ids}})
+                else:
                     tcollection.insert_one({
                         "diningCourt": location,
                         "year": date[0], 
@@ -44,7 +44,6 @@ def scrape_date(date, driver, dcollection, tcollection):
                         "meal": meal, 
                         "dishes": dish_ids
                         })
-                return True
 
 def main():
     dotenv.load_dotenv()
@@ -71,7 +70,8 @@ def main():
     date = datetime.date.today()
     dateArray = date.strftime("%Y-%m-%d").split("-")
     timedelta = datetime.timedelta(days=1)
-    while scrape_date(dateArray, driver, dcollection, tcollection):
+    for i in range(0, 10): 
+        scrape_date(dateArray, driver, dcollection, tcollection)
         date = date + timedelta
         dateArray = date.strftime("%Y-%m-%d").split("-")
 
