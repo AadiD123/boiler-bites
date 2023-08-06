@@ -1,5 +1,6 @@
 import "./Card.css";
-import Rating from "./Rating";
+import * as React from 'react';
+import Rating from '@mui/material/Rating';
 
 export default function Card(props) {
   return (

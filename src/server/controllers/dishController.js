@@ -49,6 +49,7 @@ const createDish = async (req, res) => {
     const dishCreate = await Dish.create({
       dish,
       diningCourt,
+      station,
       averageRating,
       numberOfRatings,
     });

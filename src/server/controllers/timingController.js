@@ -26,9 +26,9 @@ const getTiming = async (req, res) => {
 };
 
 const getTimingDishes = async (req, res) => {
-  const { diningCourt, meal } = req.params;
+  const { diningCourt, station, meal } = req.params;
 
-  const dishes = await Timing.find({ diningCourt, meal }).sort({
+  const dishes = await Timing.find({ diningCourt, station, meal }).sort({
     createdAt: -1,
   });
 
@@ -41,13 +41,13 @@ const getTimingDishes = async (req, res) => {
 
 // create a review
 const createTiming = async (req, res) => {
-  const { diningCourt, year, month, day, meal, dishes } = req.body;
+  const { diningCourt, station, year, month, day, meal, dishes } = req.body;
 
   // add to db
 
   try {
     const timing = await Timing.create({
-        diningCourt, year, month, day, meal, dishes
+        diningCourt, station, year, month, day, meal, dishes
     });
     res.status(200).json(timing);
   } catch (error) {
