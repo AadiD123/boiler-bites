@@ -8,8 +8,15 @@
   margin: 1em;
   border-bottom: 1px solid gray;
   border-radius: 0;
+  color: black;
 }
 
 .dish-title {
   max-width: 10em;
+}
+
+@media screen and (max-width: 600px) {
+  .dish-cont {
+    font-size: small;
+  }
 }

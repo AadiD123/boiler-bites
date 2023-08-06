@@ -5,8 +5,10 @@
 :root {
   height: 100vh;
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: "CustomFont";
-  src: url("src/app/assets/Acumin-BdItPro.otf");
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  /* font-family: "CustomFont";
+  src: url("src/app/assets/Acumin-BdItPro.otf"); */
   line-height: 1.5;
 
   /* color-scheme: light dark;
@@ -64,7 +66,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -74,5 +76,10 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+} */
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 2.5em;
   }
 }

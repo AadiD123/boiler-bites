@@ -1,8 +1,8 @@
 import "./Dish.css";
-import * as React from 'react';
+import * as React from "react";
 // import Rating from "./Rating";
 import Star from "./Star";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
 
 export default function Dish(props) {
   return (
