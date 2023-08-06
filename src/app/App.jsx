@@ -35,8 +35,8 @@ function App() {
           element={<DiningCourtPage diningCourt="1Bowl" />}
         />
         <Route
-          path="/petes-za"
-          element={<DiningCourtPage diningCourt="Petes-Za" />}
+          path="/petesza"
+          element={<DiningCourtPage diningCourt="Petes Za" />}
         />
         <Route
           path="/theburrow"

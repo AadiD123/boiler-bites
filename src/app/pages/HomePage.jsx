@@ -43,16 +43,16 @@ export default function HomePage() {
         <hr className="home-line" />
       </div>
       <div className="home-card-cont">
-        <Link to="/windsor">
+        <Link to="/1bowl">
           <FoodCard diningCourt="1bowl" />
         </Link>
-        <Link to="/windsor">
+        <Link to="/petesza">
           <FoodCard diningCourt="pete's za" />
         </Link>
-        <Link to="/windsor">
+        <Link to="/theburrow">
           <FoodCard diningCourt="the burrow" />
         </Link>
-        <Link to="/windsor">
+        <Link to="/thegatheringplace">
           <FoodCard diningCourt="the gathering place" />
         </Link>
       </div>
