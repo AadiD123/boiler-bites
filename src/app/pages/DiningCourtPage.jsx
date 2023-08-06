@@ -1,5 +1,5 @@
 import "./DiningCourtPage.css";
-import Card from "../components/Card";
+import FoodCard from "../components/FoodCard";
 import { useEffect, useState } from "react";
 import Dish from "../components/Dish";
 import Dropdown from "../components/Dropdown";
@@ -46,7 +46,7 @@ export default function DiningCourtPage(props) {
   return (
     <>
       <div className="diningCourt-cont">
-        <Card diningCourt={props.diningCourt} />
+        <FoodCard diningCourt={props.diningCourt} />
         <Dropdown onMealChange={handleMealChange} />
 
         <div className="diningCourt-food">

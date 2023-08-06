@@ -1,5 +1,5 @@
-import "./About.css";
-export default function About() {
+import "./AboutPage.css";
+export default function AboutPage() {
   return (
     <div className="abt-cont">
       <div className="abt-card">
