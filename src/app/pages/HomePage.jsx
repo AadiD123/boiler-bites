@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import FoodCard from "../components/FoodCard";
 
 export default function HomePage() {
+  const currentDate = new Date();
+
+  if (currentDate.getHours() >= 21) {
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  console.log(currentDate.getDate());
   return (
     <div className="home">
       <div className="home-trending-cont">
@@ -17,24 +24,25 @@ export default function HomePage() {
         <hr className="home-line" />
       </div>
       <div className="home-card-cont">
-        <Link to="/earhart">
-          <FoodCard diningCourt="Earhart" />
+        {/* dont know how this shit works, but basically can you make it so the diningcourt page has the same props as these foodcards */}
+        <Link to="${props.year}/${props.month}/${props.day}/earhart">
+          <FoodCard diningCourt="Earhart" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
 
         <Link to="/ford">
-          <FoodCard diningCourt="Ford" />
+          <FoodCard diningCourt="Ford" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
 
         <Link to="/hillenbrand">
-          <FoodCard diningCourt="Hillenbrand" />
+          <FoodCard diningCourt="Hillenbrand" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
 
         <Link to="/wiley">
-          <FoodCard diningCourt="Wiley" />
+          <FoodCard diningCourt="Wiley" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
 
         <Link to="/windsor">
-          <FoodCard diningCourt="Windsor" />
+          <FoodCard diningCourt="Windsor" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
       </div>
       <div className="home-break-cont">
@@ -44,16 +52,16 @@ export default function HomePage() {
       </div>
       <div className="home-card-cont">
         <Link to="/1bowl">
-          <FoodCard diningCourt="1bowl" />
+          <FoodCard diningCourt="1bowl" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
         <Link to="/petesza">
-          <FoodCard diningCourt="pete's za" />
+          <FoodCard diningCourt="pete's za" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
         <Link to="/theburrow">
-          <FoodCard diningCourt="the burrow" />
+          <FoodCard diningCourt="the burrow" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
         <Link to="/thegatheringplace">
-          <FoodCard diningCourt="the gathering place" />
+          <FoodCard diningCourt="the gathering place" year={currentDate.getFullYear()} month={currentDate.getMonth()} day={currentDate.getDate()} />
         </Link>
       </div>
     </div>

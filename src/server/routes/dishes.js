@@ -3,15 +3,14 @@ const {
   createDish,
   getDishes,
   getDish,
-  //getDCDishes,
+  // getDCDishes,
   deleteDish,
   updateDish,
 } = require("../controllers/dishController");
 
 const router = express.Router();
 
-// GET single dish by dining court
-//router.get("/:diningCourt", getDCDishes);
+// router.get("/:diningCourt", getDCDishes);
 
 // GET single dish by ID
 router.get("/:id", getDish);

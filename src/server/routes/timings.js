@@ -4,6 +4,7 @@ module.exports = {
   getTimings,
   getTiming,
   getTimingDishes,
+  // getDiningDishes,
   deleteTiming,
   updateTiming,
 } = require("../controllers/timingController");
@@ -16,7 +17,9 @@ router.get("/", getTimings);
 // GET single review
 router.get("/:id", getTiming);
 
-router.get("/:diningCourt/:meal", getTimingDishes);
+// router.get("/:year/:month/:day/:diningCourt", getDiningDishes);
+
+router.get("/:year/:month/:day/:diningCourt/:meal", getTimingDishes);
 
 // POST a review
 router.post("/", createTiming);
