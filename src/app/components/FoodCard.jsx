@@ -37,6 +37,7 @@ export default function FoodCard(props) {
           const totalAvgRatings =
             newDishes.reduce((total, dish) => total + dish.averageRating, 0) /
             newDishes.length;
+          console.log(totalAvgRating);
           setTotalAvgRating(totalAvgRatings);
         } else {
           console.log(

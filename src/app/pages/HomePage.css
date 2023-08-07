@@ -40,7 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 30em;
+  max-width: 30em;
   height: 15.5em;
   background-color: #cfb991;
   box-shadow: 1px 3px 5px 1px #808080;

@@ -58,7 +58,7 @@ const StarRating = (props) => {
                 (props.avg * props.num -
                   localStorage.getItem(localStorage.getItem(props.id)) +
                   selectedRating) /
-                (props.num + 1),
+                (props.num),
             }),
           }
         );
