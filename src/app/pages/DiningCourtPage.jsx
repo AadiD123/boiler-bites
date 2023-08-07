@@ -8,31 +8,45 @@ export default function DiningCourtPage(props) {
   const [dishes, setDishes] = useState([]);
   const [meal, setMeal] = useState("Breakfast");
 
+  var currentDate = new Date();
+
+  if (currentDate.getHours() >= 21) {
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
   useEffect(() => {
     if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
-          `http://localhost:4000/api/timings/${props.year}/${props.month}/${props.day}/${props.diningCourt}/${meal}`
+          `https://boiler-bites.onrender.com/api/timings/${currentDate.getFullYear()}/${
+            currentDate.getMonth() + 1
+          }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
         );
-        const json = await response.json();
-
-        if (json.length === 0) {
-          setDishes([]);
-        }
 
         if (response.ok) {
-          var dishesId = json["0"].dishes;
+          const json = await response.json();
 
-          const dishPromises = dishesId.map(async (dishId) => {
-            const dishResponse = await fetch(
-              "http://localhost:4000/api/dishes/" + dishId
-            );
-            const dishJson = await dishResponse.json();
-            return dishJson;
-          });
+          if (json.length === 0) {
+            setDishes([]);
+          } else {
+            var dishesId = json["0"].dishes;
 
-          const newDishes = await Promise.all(dishPromises);
-          setDishes(newDishes);
+            const dishPromises = dishesId.map(async (dishId) => {
+              const dishResponse = await fetch(
+                "https://boiler-bites.onrender.com/api/dishes/" + dishId
+              );
+              const dishJson = await dishResponse.json();
+              return dishJson;
+            });
+
+            const newDishes = await Promise.all(dishPromises);
+            setDishes(newDishes);
+          }
+        } else {
+          console.log(
+            "Error fetching dishes for dining court",
+            props.diningCourt
+          );
         }
       };
       fetchCurrentFood();
@@ -47,6 +61,8 @@ export default function DiningCourtPage(props) {
     <>
       <div className="diningCourt-cont">
         <FoodCard diningCourt={props.diningCourt} />
+
+        {/* {props.diningCourt === "1Bowl" ||  props.diningCourt === "Pete's Za" || props.diningCourt === "The Burrow" || props.diningCourt === "The Gathering Place" ? () : } */}
         <Dropdown onMealChange={handleMealChange} />
 
         <div className="diningCourt-food">

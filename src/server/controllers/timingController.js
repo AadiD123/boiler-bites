@@ -1,4 +1,4 @@
-const Timing = require("../models/timing");
+const Timing = require("../models/Timing");
 const mongoose = require("mongoose");
 
 // get all timings
@@ -42,9 +42,7 @@ const getTiming = async (req, res) => {
 const getTimingDishes = async (req, res) => {
   const { year, month, day, diningCourt, meal } = req.params;
 
-  const dishes = await Timing.find({ year, month, day, diningCourt, meal }).sort({
-    createdAt: -1,
-  });
+  const dishes = await Timing.find({ year, month, day, diningCourt, meal });
 
   if (!dishes) {
     return res.status(404).json({ error: "No dishes served at this time" });
@@ -54,13 +52,18 @@ const getTimingDishes = async (req, res) => {
 };
 
 const createTiming = async (req, res) => {
-  const { year, month, day, diningCourt,  meal, dishes } = req.body;
+  const { year, month, day, diningCourt, meal, dishes } = req.body;
 
   // add to db
 
   try {
     const timing = await Timing.create({
-      year, month, day, diningCourt, meal, dishes
+      year,
+      month,
+      day,
+      diningCourt,
+      meal,
+      dishes,
     });
     res.status(200).json(timing);
   } catch (error) {

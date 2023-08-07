@@ -9,7 +9,7 @@ import AboutPage from "./pages/AboutPage";
 function App() {
   return (
     <Router>
-      <img className="background-img" src="src/app/assets/purdue.jpg" />
+      <img className="background-img" src="/assets/purdue.jpg" />
       <Navbar />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
@@ -32,19 +32,19 @@ function App() {
         />
         <Route
           path="/1bowl"
-          element={<DiningCourtPage diningCourt="1Bowl" />}
+          element={<DiningCourtPage diningCourt="1bowl" />}
         />
         <Route
           path="/petesza"
-          element={<DiningCourtPage diningCourt="Petes Za" />}
+          element={<DiningCourtPage diningCourt="petes za" />}
         />
         <Route
           path="/theburrow"
-          element={<DiningCourtPage diningCourt="The Burrow" />}
+          element={<DiningCourtPage diningCourt="the burrow" />}
         />
         <Route
           path="/thegatheringplace"
-          element={<DiningCourtPage diningCourt="The Gathering Place" />}
+          element={<DiningCourtPage diningCourt="the gathering place" />}
         />
         <Route path="/About" element={<AboutPage />} />
       </Routes>
