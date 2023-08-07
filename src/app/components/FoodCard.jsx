@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Rating from "@mui/material/Rating";
+
 import "./FoodCard.css";
+import RatingStar from "./RatingStar";
 
 export default function FoodCard(props) {
-  // const [dishes, setDishes] = useState([]);
   const [totalAvgRating, setTotalAvgRating] = useState(0);
 
   var currentDate = new Date();
@@ -13,34 +13,44 @@ export default function FoodCard(props) {
   }
 
   useEffect(() => {
-    const fetchCurrentAvg = async () => {
+    const fetchCurrentAvg = async (meal) => {
       try {
         const response = await fetch(
-          `https://boiler-bites.onrender.com/${currentDate.getFullYear()}/${currentDate.getMonth()}/${currentDate.getDate()}/${
-            props.diningCourt
-          }/`
+          `https://boiler-bites.onrender.com/api/timings/${currentDate.getFullYear()}/${
+            currentDate.getMonth() + 1
+          }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
         );
 
         if (response.ok) {
           const json = await response.json();
-          var dishesId = json[0].dishes;
+          if (json.length !== 0) {
+            var dishesId = json[0].dishes;
 
-          const dishPromises = dishesId.map(async (dishId) => {
-            const dishResponse = await fetch(
-              "https://boiler-bites.onrender.com/api/dishes/" + dishId
-            );
-            const dishJson = await dishResponse.json();
-            return dishJson;
-          });
+            const dishPromises = dishesId.map(async (dishId) => {
+              const dishResponse = await fetch(
+                "https://boiler-bites.onrender.com/api/dishes/" + dishId
+              );
+              const dishJson = await dishResponse.json();
+              return dishJson;
+            });
 
-          const newDishes = await Promise.all(dishPromises);
-          const totalAvgRatings =
-            newDishes.reduce((total, dish) => total + dish.averageRating, 0) /
-            newDishes.length;
-          console.log(totalAvgRating);
-          setTotalAvgRating(totalAvgRatings);
+            const newDishes = await Promise.all(dishPromises);
+
+            // Filter out dishes with 0 ratings
+            const ratedDishes = newDishes.filter((dish) => dish.numRatings > 0);
+
+            if (ratedDishes.length > 0) {
+              const totalAvgRatings =
+                ratedDishes.reduce(
+                  (total, dish) => total + dish.averageRating,
+                  0
+                ) / ratedDishes.length;
+              console.log(totalAvgRatings);
+              setTotalAvgRating(totalAvgRatings);
+            }
+          }
         } else {
-          console.log(
+          console.error(
             "There were no dishes for %s for date %s",
             props.diningCourt,
             currentDate
@@ -50,18 +60,16 @@ export default function FoodCard(props) {
         console.error("Error fetching data:", error);
       }
     };
-    fetchCurrentAvg();
+    const meals = ["Breakfast", "Lunch", "Dinner"];
+    meals.forEach((meal) => {
+      fetchCurrentAvg(meal);
+    });
   }, [props.diningCourt]);
 
   return (
     <div className="card-cont">
       <img src={`/assets/${props.diningCourt}.png`} alt="Dining Court" />
-      <Rating
-        name="read-only"
-        value={totalAvgRating}
-        readOnly
-        precision={0.1}
-      />
+      <RatingStar totalAvgRating={totalAvgRating} />
     </div>
   );
 }
