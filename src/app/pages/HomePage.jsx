@@ -9,7 +9,6 @@ export default function HomePage() {
       <div className="home-trending-cont">
         <h4 className="home-trending">Currently Trending</h4>
         <img src="/assets/1bowl.png" />
-        {/* <Rating name="read-only" value={4.5} readOnly precision={0.1} /> */}
       </div>
       <div className="home-break-cont">
         <hr className="home-line" />
@@ -17,7 +16,6 @@ export default function HomePage() {
         <hr className="home-line" />
       </div>
       <div className="home-card-cont">
-        {/* dont know how this shit works, but basically can you make it so the diningcourt page has the same props as these foodcards */}
         <Link to="/earhart">
           <FoodCard diningCourt="Earhart" />
         </Link>
