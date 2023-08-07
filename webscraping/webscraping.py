@@ -43,31 +43,31 @@ def scrape_date(date, driver, dcollection, tcollection):
                 + meal
                 + "/"
             )
-
+            dish_ids = []
             driver.get(url)
             stations = driver.find_elements(By.CLASS_NAME, "station")
-            for station in stations:
-                station_text = station.find_element(By.CLASS_NAME, "station-name").text
-                elements = station.find_elements(By.CLASS_NAME, "station-item-text")
-                dish_ids = []
-                for element in elements:
-                    dish = element.text
-                    existing_dish = dcollection.find_one(
-                        {"dish": dish, "diningCourt": location}
-                    )
-                    if not existing_dish:
-                        new_dish_data = {
-                            "dish": dish,
-                            "diningCourt": location,
-                            "station": station_text,
-                            "averageRating": 0,
-                            "numRatings": 0,
-                        }
-                        result = dcollection.insert_one(new_dish_data)
-                        id = result.inserted_id
-                    else:
-                        id = existing_dish["_id"]
-                    dish_ids.append(id)
+            if stations:
+                for station in stations:
+                    station_text = station.find_element(By.CLASS_NAME, "station-name").text
+                    elements = station.find_elements(By.CLASS_NAME, "station-item-text")
+                    for element in elements:
+                        dish = element.text
+                        existing_dish = dcollection.find_one(
+                            {"dish": dish, "diningCourt": location}
+                        )
+                        if not existing_dish:
+                            new_dish_data = {
+                                "dish": dish,
+                                "diningCourt": location,
+                                "station": station_text,
+                                "averageRating": 0,
+                                "numRatings": 0,
+                            }
+                            result = dcollection.insert_one(new_dish_data)
+                            id = result.inserted_id
+                        else:
+                            id = existing_dish["_id"]
+                        dish_ids.append(id)
                 if tcollection.find_one(
                     {
                         "year": int(date[0]),
