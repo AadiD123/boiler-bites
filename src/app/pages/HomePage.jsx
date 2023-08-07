@@ -8,7 +8,7 @@ export default function HomePage() {
     <div className="home">
       <div className="home-trending-cont">
         <h4 className="home-trending">Currently Trending</h4>
-        <img src="src/app/assets/1bowl.png" />
+        <img src="/assets/1bowl.png" />
         {/* <Rating name="read-only" value={4.5} readOnly precision={0.1} /> */}
       </div>
       <div className="home-break-cont">

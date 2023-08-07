@@ -138,8 +138,8 @@ const StarRating = (props) => {
             className="star-bm"
             src={
               star <= (rating || 0)
-                ? "src/app/assets/boilermaker.png"
-                : "src/app/assets/boilermaker gray.png"
+                ? "/assets/boilermaker.png"
+                : "/assets/boilermaker gray.png"
             }
             alt={`Star ${star}`}
           />

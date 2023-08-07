@@ -54,7 +54,7 @@ export default function FoodCard(props) {
 
   return (
     <div className="card-cont">
-      <img src={`src/app/assets/${props.diningCourt}.png`} alt="Dining Court" />
+      <img src={`/assets/${props.diningCourt}.png`} alt="Dining Court" />
       <Rating
         name="read-only"
         value={totalAvgRating}
