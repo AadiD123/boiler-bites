@@ -98,7 +98,7 @@ module.exports = {
   createDish,
   getDish,
   getDishes,
-  //getDCDishes,
+  // getDCDishes,
   deleteDish,
   updateDish,
 };

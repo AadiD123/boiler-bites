@@ -12,7 +12,7 @@ export default function DiningCourtPage(props) {
     if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
-          `http://localhost:4000/api/timings/${props.diningCourt}/${meal}`
+          `http://localhost:4000/api/timings/${props.year}/${props.month}/${props.day}/${props.diningCourt}/${meal}`
         );
         const json = await response.json();
 

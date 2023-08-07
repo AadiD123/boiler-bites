@@ -25,10 +25,24 @@ const getTiming = async (req, res) => {
   res.status(200).json(timing);
 };
 
-const getTimingDishes = async (req, res) => {
-  const { diningCourt, station, meal } = req.params;
+// const getDiningDishes = async (req, res) => {
+//   const { year, month, day, diningCourt } = req.params;
 
-  const dishes = await Timing.find({ diningCourt, station, meal }).sort({
+//   const dishes = await Timing.find({ year, month, day, diningCourt }).sort({
+//     createdAt: -1,
+//   });
+
+//   if (!dishes) {
+//     return res.status(404).json({ error: "No dishes served at this time" });
+//   }
+
+//   res.status(200).json(dishes);
+// };
+
+const getTimingDishes = async (req, res) => {
+  const { year, month, day, diningCourt, meal } = req.params;
+
+  const dishes = await Timing.find({ year, month, day, diningCourt, meal }).sort({
     createdAt: -1,
   });
 
@@ -39,15 +53,14 @@ const getTimingDishes = async (req, res) => {
   res.status(200).json(dishes);
 };
 
-// create a review
 const createTiming = async (req, res) => {
-  const { diningCourt, station, year, month, day, meal, dishes } = req.body;
+  const { year, month, day, diningCourt,  meal, dishes } = req.body;
 
   // add to db
 
   try {
     const timing = await Timing.create({
-        diningCourt, station, year, month, day, meal, dishes
+      year, month, day, diningCourt, meal, dishes
     });
     res.status(200).json(timing);
   } catch (error) {
@@ -96,4 +109,5 @@ module.exports = {
   deleteTiming,
   updateTiming,
   getTimingDishes,
+  // getDiningDishes,
 };

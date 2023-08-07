@@ -22,27 +22,27 @@ def scrape_date(date, driver, dcollection, tcollection):
             driver.get(url) 
             stations = driver.find_elements(By.CLASS_NAME,'station')
             for station in stations:
+                station_text = station.find_element(By.CLASS_NAME, 'station-name').text
                 elements = station.find_elements(By.CLASS_NAME, 'station-item-text')
                 dish_ids = []
                 for element in elements:
                     dish = element.text
                     existing_dish = dcollection.find_one({"dish": dish, "diningCourt": location })
                     if not existing_dish:
-                        new_dish_data = {"dish": dish, "diningCourt": location, "station": station.text, "averageRating": 0, "numRatings": 0}
+                        new_dish_data = {"dish": dish, "diningCourt": location, "station": station_text, "averageRating": 0, "numRatings": 0}
                         result = dcollection.insert_one(new_dish_data)
                         id = result.inserted_id
                     else:
                         id = existing_dish["_id"]
                     dish_ids.append(id)
-                if tcollection.find_one({"diningCourt": location, "station": station.text, "year": date[0], "month": date[1], "day": date[2], "meal": meal}):
-                    tcollection.update_one({"diningCourt": location, "station": station.text, "year": date[0], "month": date[1], "day": date[2], "meal": meal}, {"$set": {"dishes": dish_ids}})
+                if tcollection.find_one({ "year": date[0], "month": date[1], "day": date[2], "diningCourt": location, "meal": meal}):
+                    tcollection.update_one({ "year": date[0], "month": date[1], "day": date[2], "diningCourt": location, "meal": meal}, {"$set": {"dishes": dish_ids}})
                 else:
                     tcollection.insert_one({
-                        "diningCourt": location,
-                        "station": station.text,
                         "year": date[0], 
                         "month": date[1], 
                         "day": date[2], 
+                        "diningCourt": location,
                         "meal": meal, 
                         "dishes": dish_ids
                         })
