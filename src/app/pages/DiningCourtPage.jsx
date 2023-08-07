@@ -47,6 +47,8 @@ export default function DiningCourtPage(props) {
     <>
       <div className="diningCourt-cont">
         <FoodCard diningCourt={props.diningCourt} />
+
+        {/* {props.diningCourt === "1Bowl" ||  props.diningCourt === "Pete's Za" || props.diningCourt === "The Burrow" || props.diningCourt === "The Gathering Place" ? () : } */}
         <Dropdown onMealChange={handleMealChange} />
 
         <div className="diningCourt-food">
