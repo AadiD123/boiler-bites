@@ -33,7 +33,7 @@ export default function DiningCourtPage(props) {
 
             const dishPromises = dishIds.map(async (dishId) => {
               const dishResponse = await fetch(
-                "https://localhost:4000/api/dishes/" + dishId
+                "http://localhost:4000/api/dishes/" + dishId
               );
               const dishJson = await dishResponse.json();
               return dishJson;
