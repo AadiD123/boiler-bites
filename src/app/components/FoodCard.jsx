@@ -16,7 +16,7 @@ export default function FoodCard(props) {
     const fetchCurrentAvg = async (meal) => {
       try {
         const response = await fetch(
-          `https://boiler-bites.onrender.com/api/timings/${currentDate.getFullYear()}/${
+          `http://localhost:4000/api/timings/${currentDate.getFullYear()}/${
             currentDate.getMonth() + 1
           }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
         );
@@ -28,7 +28,7 @@ export default function FoodCard(props) {
 
             const dishPromises = dishesId.map(async (dishId) => {
               const dishResponse = await fetch(
-                "https://boiler-bites.onrender.com/api/dishes/" + dishId
+                "http://localhost:4000/api/dishes/" + dishId
               );
               const dishJson = await dishResponse.json();
               return dishJson;
