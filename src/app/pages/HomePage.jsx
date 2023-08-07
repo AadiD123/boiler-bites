@@ -48,7 +48,7 @@ export default function HomePage() {
           <FoodCard diningCourt="1bowl" />
         </Link>
         <Link to="/petesza">
-          <FoodCard diningCourt="pete's za" />
+          <FoodCard diningCourt="petes za" />
         </Link>
         <Link to="/theburrow">
           <FoodCard diningCourt="the burrow" />
