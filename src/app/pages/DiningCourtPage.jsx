@@ -18,7 +18,7 @@ export default function DiningCourtPage(props) {
     if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
-          `http://localhost:4000/api/timings/${currentDate.getFullYear()}/${
+          `https://boiler-bites.onrender.com/api/timings/${currentDate.getFullYear()}/${
             currentDate.getMonth() + 1
           }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
         );
@@ -33,7 +33,7 @@ export default function DiningCourtPage(props) {
 
             const dishPromises = dishesId.map(async (dishId) => {
               const dishResponse = await fetch(
-                "http://localhost:4000/api/dishes/" + dishId
+                "https://boiler-bites.onrender.com/api/dishes/" + dishId
               );
               const dishJson = await dishResponse.json();
               return dishJson;
