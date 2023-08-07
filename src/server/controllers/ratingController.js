@@ -1,4 +1,4 @@
-const Rating = require("../models/rating");
+const Rating = require("../models/Rating");
 const mongoose = require("mongoose");
 
 // get all ratings

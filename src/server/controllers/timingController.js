@@ -1,4 +1,4 @@
-const Timing = require("../models/timing");
+const Timing = require("../models/Timing");
 const mongoose = require("mongoose");
 
 // get all timings
