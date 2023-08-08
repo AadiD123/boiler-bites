@@ -30,6 +30,7 @@ export default function DiningCourtPage(props) {
             setDishes([]);
           } else {
             const newDishes = json["0"].display;
+
             setDishes(newDishes);
           }
         } else {
