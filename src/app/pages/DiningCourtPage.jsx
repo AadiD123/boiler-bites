@@ -78,15 +78,19 @@ export default function DiningCourtPage(props) {
           .map((station) => (
             <div key={station} className="diningCourt-food">
               <h3>{station}</h3>
-              {dishesByStation[station].map((dish) => (
-                <Dish
-                  key={dish._id}
-                  id={dish._id}
-                  dish={dish.dish}
-                  num={dish.numRatings}
-                  avg={dish.averageRating}
-                />
-              ))}
+              {dishesByStation[station]
+                .sort((dishA, dishB) => {
+                  return dishB.averageRating - dishA.averageRating; // Sort by average rating
+                })
+                .map((dish) => (
+                  <Dish
+                    key={dish._id}
+                    id={dish._id}
+                    dish={dish.dish}
+                    num={dish.numRatings}
+                    avg={dish.averageRating}
+                  />
+                ))}
             </div>
           ))
       ) : (
