@@ -1,150 +1,177 @@
 import React, { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 import "./Star.css";
+import { json } from "react-router-dom";
 
 const Star = (props) => {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    if (localStorage.getItem(props.id) !== null) {
-      setRating(localStorage.getItem(localStorage.getItem(props.id)));
+    const storedRating = localStorage.getItem(localStorage.getItem(props.id));
+    if (storedRating !== null) {
+      setRating(parseFloat(storedRating)); // Convert the stored rating to a float
     }
-  }, [rating]);
+  }, [props.id]); // Only update the effect when props.id changes
 
-  const handleStarClick = async (selectedRating) => {
-    setRating(selectedRating);
+  const updateExistingRating = async (selectedRating, ratingId) => {
+    console.log("update existing rating");
 
-    // this is dish id
-    console.log("props.id", props.id);
+    var avgRating = 0.0;
+    var numRatings = 0;
 
-    // this gets rating id from dish id
-    if (localStorage.getItem(props.id) !== null) {
-      // update existing rating with new rating
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/ratings/${localStorage.getItem(props.id)}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              stars: selectedRating,
-            }),
-          }
-        );
+    // fetch to get the latest dish info
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/dishes/${props.id}`
+      );
 
-        // don't have to add to local storage because it's already there
-        if (response.ok) {
-          console.log(`Updated user's rating: ${selectedRating}`);
-          localStorage.setItem(localStorage.getItem(props.id), selectedRating);
-        } else {
-          console.error("Failed to update rating to the server.");
-        }
-      } catch (error) {
-        console.error("Error occurred while updating rating:", error);
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        avgRating = jsonResponse.averageRating;
+        numRatings = jsonResponse.numRatings;
+      } else {
+        console.error("Failed to fetch latest dish info");
       }
+    } catch (error) {
+      console.error("Error occurred while fetching dish info:", error);
+    }
 
-      // update dish with new average rating
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/dishes/${props.id}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              averageRating:
-                (props.avg * props.num -
-                  localStorage.getItem(localStorage.getItem(props.id)) +
-                  selectedRating) /
-                props.num,
-            }),
-          }
-        );
+    console.log("updated dish info", avgRating, numRatings);
 
-        if (response.ok) {
-          console.log(`User's rating: ${selectedRating}`);
-        } else {
-          console.error("Failed to change dish.");
-        }
-      } catch (error) {
-        console.error("Error occurred while changing dish:", error);
-      }
-    } else {
-      try {
-        const response = await fetch("http://localhost:4000/api/ratings", {
-          method: "POST",
+    // Update the existing rating on the server
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/ratings/${ratingId}`,
+        {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ dish: props.id, stars: selectedRating }),
-        });
-
-        if (response.ok) {
-          const jsonResponse = await response.json();
-
-          console.log(`User's rating: ${selectedRating}`);
-          console.log("jsonResponse id", jsonResponse._id);
-
-          localStorage.setItem(props.id, jsonResponse._id);
-          localStorage.setItem(jsonResponse._id, selectedRating);
-        } else {
-          console.error("Failed to send rating to the server.");
+          body: JSON.stringify({
+            stars: selectedRating,
+          }),
         }
-      } catch (error) {
-        console.error("Error occurred while sending rating:", error);
-      }
+      );
 
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/dishes/${props.id}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              numRatings: props.num + 1,
-              averageRating:
-                (props.avg * props.num + selectedRating) / (props.num + 1),
-            }),
+      if (response.ok) {
+        console.log(`Updated user's rating: ${selectedRating}`);
+        // Calculate new average rating
+        avgRating =
+          avgRating * numRatings -
+          localStorage.getItem(ratingId) +
+          selectedRating / numRatings;
+        // Update the rating in localStorage
+        localStorage.setItem(ratingId, selectedRating.toString());
+        console.log("new avgRating", avgRating);
+        // Update the dish with the existing average rating
+        try {
+          const response = await fetch(
+            `http://localhost:4000/api/dishes/${props.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                averageRating: avgRating,
+              }),
+            }
+          );
+
+          if (response.ok) {
+            console.log(`Updated dish's average rating: ${selectedRating}`);
+          } else {
+            console.error("Failed to update dish's average rating.");
           }
-        );
-
-        if (response.ok) {
-          console.log(`User's rating: ${selectedRating}`);
-        } else {
-          console.error("Failed to change dish.");
+        } catch (error) {
+          console.error("Error occurred while updating dish:", error);
         }
-      } catch (error) {
-        console.error("Error occurred while changing dish:", error);
+      } else {
+        console.error("Failed to update rating on the server.");
       }
+    } catch (error) {
+      console.error("Error occurred while updating rating:", error);
+    }
+  };
+
+  const createNewRating = async (selectedRating) => {
+    console.log("create new rating", props.id, props.avg, props.num);
+    // Create a new rating on the server
+    try {
+      const response = await fetch("http://localhost:4000/api/ratings/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ dish: props.id, stars: selectedRating }),
+      });
+
+      if (response.ok) {
+        const jsonResponse = await response.json();
+
+        console.log(`User's rating: ${selectedRating}`);
+        console.log("jsonResponse id", jsonResponse._id);
+
+        // Add localStorage with the new rating id
+        localStorage.setItem(props.id, jsonResponse._id);
+        localStorage.setItem(jsonResponse._id, selectedRating.toString());
+      } else {
+        console.error("Failed to send rating to the server.");
+      }
+    } catch (error) {
+      console.error("Error occurred while sending rating:", error);
+    }
+
+    // Update the dish with the new average rating
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/dishes/${props.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            numRatings: props.num + 1,
+            averageRating:
+              (props.avg * props.num + selectedRating) / (props.num + 1),
+          }),
+        }
+      );
+
+      if (response.ok) {
+        console.log(`Updated dish's average rating: ${selectedRating}`);
+      } else {
+        console.error("Failed to update dish's average rating.");
+      }
+    } catch (error) {
+      console.error("Error occurred while updating dish:", error);
+    }
+  };
+
+  const handleStarClick = async (selectedRating) => {
+    // Update local state
+    setRating(selectedRating);
+
+    // Check if a rating for this dish already exists
+    const ratingId = localStorage.getItem(props.id);
+
+    if (ratingId) {
+      await updateExistingRating(selectedRating, ratingId);
+    } else {
+      await createNewRating(selectedRating);
     }
   };
 
   return (
     <div className="star-cont">
-      {/* {[1, 2, 3, 4, 5].map((star) => (
-        <span
-          key={star}
-          onClick={() => handleStarClick(star)}
-          style={{
-            cursor: "pointer",
-            color: star <= rating ? "gold" : "gray",
-          }}
-        >
-          ☆
-        </span>
-      ))} */}
       <Rating
-  name="simple-controlled"
-  value={rating}  
-  onChange={(event, newValue) => {
-    handleStarClick(newValue);
-  }}
-/>
+        name={`simple-controlled-${props.id}`} // Use a unique name for each Rating component
+        value={rating}
+        onChange={(event, newValue) => {
+          handleStarClick(newValue);
+        }}
+      />
     </div>
   );
 };

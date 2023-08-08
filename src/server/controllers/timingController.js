@@ -1,6 +1,5 @@
 const Timing = require("../models/Timing");
 const mongoose = require("mongoose");
-const { TimePicker } = require("material-ui");
 // const {MongoClient} = require('mongodb');
 
 // get all timings
@@ -27,7 +26,6 @@ const getTiming = async (req, res) => {
   res.status(200).json(timing);
 };
 
-
 // const getDiningDishes = async (req, res) => {
 //   const { year, month, day, diningCourt } = req.params;
 
@@ -47,23 +45,24 @@ const getTimingDishes = async (req, res) => {
 
   try {
     // await client.connect();
-    const coll = mongoose.connection.collection('timings');
+    const coll = mongoose.connection.collection("timings");
     const agg = [
       {
-        '$match': { // Add $match stage to filter based on time found
-          'year': Number(year),
-          'month': Number(month),
-          'day': Number(day),
-          'diningCourt': diningCourt,
-          'meal': meal,
+        $match: {
+          // Add $match stage to filter based on time found
+          year: Number(year),
+          month: Number(month),
+          day: Number(day),
+          diningCourt: diningCourt,
+          meal: meal,
         },
       },
       {
-        '$lookup': {
-          'from': 'dishes',
-          'localField': 'dishes',
-          'foreignField': '_id',
-          'as': 'display',
+        $lookup: {
+          from: "dishes",
+          localField: "dishes",
+          foreignField: "_id",
+          as: "display",
         },
       },
     ];
@@ -74,7 +73,7 @@ const getTimingDishes = async (req, res) => {
   } catch (e) {
     console.error(e);
     // await client.close();
-    res.status(500).json({ error: 'Error fetching data' });
+    res.status(500).json({ error: "Error fetching data" });
   }
 };
 
