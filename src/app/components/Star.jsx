@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 import "./Star.css";
 
-const StarRating = (props) => {
+const Star = (props) => {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
@@ -149,4 +149,4 @@ const StarRating = (props) => {
   );
 };
 
-export default StarRating;
+export default Star;
