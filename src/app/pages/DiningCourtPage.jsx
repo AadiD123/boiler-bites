@@ -44,6 +44,10 @@ export default function DiningCourtPage(props) {
               groupedDishes[station].push(dish);
             });
 
+            for (const station in groupedDishes) {
+              groupedDishes[station].sort((a, b) => b.averagerating - a.averagerating);
+            }
+
             setDishesByStation(groupedDishes);
           }
         } else {
@@ -78,15 +82,33 @@ export default function DiningCourtPage(props) {
           .map((station) => (
             <div key={station} className="diningCourt-food">
               <h3>{station}</h3>
-              {dishesByStation[station].map((dish) => (
-                <Dish
-                  key={dish._id}
-                  id={dish._id}
-                  dish={dish.dish}
-                  num={dish.numRatings}
-                  avg={dish.averageRating}
-                />
-              ))}
+              {Object.keys(dishesByStation[station]).length > 0? (
+                dishesByStation[station]
+                .sort((dishA, dishB) => {
+                    return (
+                      dishB.averagerating - dishA.averagerating
+                    );
+                  })
+                .map((dish) => (
+                    <Dish
+                      key={dish.id}
+                      dish={dish}
+                      diningCourt={props.diningCourt}
+                    />
+                  ))
+              ) : (
+                <p>No dishes for this station</p>
+              )}
+              {/* {Object.keys(dishesByStation[station]).length > 0 ? (
+                dishesByStation[station].map((dish) => (
+                  <Dish
+                    key={dish._id}
+                    id={dish._id}
+                    dish={dish.dish}
+                    num={dish.numRatings}
+                    avg={dish.averageRating}
+                  />
+                ))} */}
             </div>
           ))
       ) : (
