@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  padding-bottom: 5em;
 }
 
 .home-card-cont {
