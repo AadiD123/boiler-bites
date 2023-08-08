@@ -29,17 +29,7 @@ export default function DiningCourtPage(props) {
           if (json.length === 0) {
             setDishes([]);
           } else {
-            const dishIds = json["0"].dishes;
-
-            const dishPromises = dishIds.map(async (dishId) => {
-              const dishResponse = await fetch(
-                "http://localhost:4000/api/dishes/" + dishId
-              );
-              const dishJson = await dishResponse.json();
-              return dishJson;
-            });
-
-            const newDishes = await Promise.all(dishPromises);
+            const newDishes = json["0"].display;
             setDishes(newDishes);
           }
         } else {
