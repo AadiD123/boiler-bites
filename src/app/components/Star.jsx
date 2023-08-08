@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Rating from "@mui/material/Rating";
 import "./Star.css";
 
 const StarRating = (props) => {
@@ -125,7 +126,7 @@ const StarRating = (props) => {
 
   return (
     <div className="star-cont">
-      {[1, 2, 3, 4, 5].map((star) => (
+      {/* {[1, 2, 3, 4, 5].map((star) => (
         <span
           key={star}
           onClick={() => handleStarClick(star)}
@@ -136,7 +137,14 @@ const StarRating = (props) => {
         >
           ☆
         </span>
-      ))}
+      ))} */}
+      <Rating
+  name="simple-controlled"
+  value={rating}  
+  onChange={(event, newValue) => {
+    handleStarClick(newValue);
+  }}
+/>
     </div>
   );
 };

@@ -24,17 +24,7 @@ export default function FoodCard(props) {
         if (response.ok) {
           const json = await response.json();
           if (json.length !== 0) {
-            var dishesId = json[0].dishes;
-
-            const dishPromises = dishesId.map(async (dishId) => {
-              const dishResponse = await fetch(
-                "http://localhost:4000/api/dishes/" + dishId
-              );
-              const dishJson = await dishResponse.json();
-              return dishJson;
-            });
-
-            const newDishes = await Promise.all(dishPromises);
+            const newDishes = json["0"].display;
 
             // Filter out dishes with 0 ratings
             const ratedDishes = newDishes.filter((dish) => dish.numRatings > 0);
