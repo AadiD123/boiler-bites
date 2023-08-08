@@ -1,5 +1,7 @@
 const Timing = require("../models/Timing");
 const mongoose = require("mongoose");
+const { TimePicker } = require("material-ui");
+// const {MongoClient} = require('mongodb');
 
 // get all timings
 const getTimings = async (req, res) => {
@@ -25,6 +27,7 @@ const getTiming = async (req, res) => {
   res.status(200).json(timing);
 };
 
+
 // const getDiningDishes = async (req, res) => {
 //   const { year, month, day, diningCourt } = req.params;
 
@@ -42,13 +45,37 @@ const getTiming = async (req, res) => {
 const getTimingDishes = async (req, res) => {
   const { year, month, day, diningCourt, meal } = req.params;
 
-  const dishes = await Timing.find({ year, month, day, diningCourt, meal });
-
-  if (!dishes) {
-    return res.status(404).json({ error: "No dishes served at this time" });
+  try {
+    // await client.connect();
+    const coll = mongoose.connection.collection('timings');
+    const agg = [
+      {
+        '$match': { // Add $match stage to filter based on time found
+          'year': Number(year),
+          'month': Number(month),
+          'day': Number(day),
+          'diningCourt': diningCourt,
+          'meal': meal,
+        },
+      },
+      {
+        '$lookup': {
+          'from': 'dishes',
+          'localField': 'dishes',
+          'foreignField': '_id',
+          'as': 'display',
+        },
+      },
+    ];
+    const cursor = coll.aggregate(agg);
+    const result = await cursor.toArray();
+    // await client.close();
+    res.status(200).json(result);
+  } catch (e) {
+    console.error(e);
+    // await client.close();
+    res.status(500).json({ error: 'Error fetching data' });
   }
-
-  res.status(200).json(dishes);
 };
 
 const createTiming = async (req, res) => {

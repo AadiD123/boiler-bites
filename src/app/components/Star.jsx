@@ -21,7 +21,7 @@ const StarRating = (props) => {
       // update existing rating with new rating
       try {
         const response = await fetch(
-          `https://boiler-bites.onrender.com/api/ratings/${localStorage.getItem(props.id)}`,
+          `http://localhost:4000/api/ratings/${localStorage.getItem(props.id)}`,
           {
             method: "PATCH",
             headers: {
@@ -47,7 +47,7 @@ const StarRating = (props) => {
       // update dish with new average rating
       try {
         const response = await fetch(
-          `https://boiler-bites.onrender.com/api/dishes/${props.id}`,
+          `http://localhost:4000/api/dishes/${props.id}`,
           {
             method: "PATCH",
             headers: {
@@ -58,7 +58,7 @@ const StarRating = (props) => {
                 (props.avg * props.num -
                   localStorage.getItem(localStorage.getItem(props.id)) +
                   selectedRating) /
-                (props.num),
+                props.num,
             }),
           }
         );
@@ -73,7 +73,7 @@ const StarRating = (props) => {
       }
     } else {
       try {
-        const response = await fetch("https://boiler-bites.onrender.com/api/ratings", {
+        const response = await fetch("http://localhost:4000/api/ratings", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const StarRating = (props) => {
 
       try {
         const response = await fetch(
-          `https://boiler-bites.onrender.com/api/dishes/${props.id}`,
+          `http://localhost:4000/api/dishes/${props.id}`,
           {
             method: "PATCH",
             headers: {
@@ -131,18 +131,10 @@ const StarRating = (props) => {
           onClick={() => handleStarClick(star)}
           style={{
             cursor: "pointer",
-            display: "flex",
+            color: star <= rating ? "gold" : "gray",
           }}
         >
-          <img
-            className="star-bm"
-            src={
-              star <= (rating || 0)
-                ? "/assets/boilermaker.png"
-                : "/assets/boilermaker gray.png"
-            }
-            alt={`Star ${star}`}
-          />
+          ☆
         </span>
       ))}
     </div>

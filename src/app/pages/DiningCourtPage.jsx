@@ -18,7 +18,7 @@ export default function DiningCourtPage(props) {
     if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
-          `https://boiler-bites.onrender.com/api/timings/${currentDate.getFullYear()}/${
+          `http://localhost:4000/api/timings/${currentDate.getFullYear()}/${
             currentDate.getMonth() + 1
           }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
         );
@@ -29,17 +29,8 @@ export default function DiningCourtPage(props) {
           if (json.length === 0) {
             setDishes([]);
           } else {
-            var dishesId = json["0"].dishes;
+            const newDishes = json["0"].display;
 
-            const dishPromises = dishesId.map(async (dishId) => {
-              const dishResponse = await fetch(
-                "https://boiler-bites.onrender.com/api/dishes/" + dishId
-              );
-              const dishJson = await dishResponse.json();
-              return dishJson;
-            });
-
-            const newDishes = await Promise.all(dishPromises);
             setDishes(newDishes);
           }
         } else {
