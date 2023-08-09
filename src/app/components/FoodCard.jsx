@@ -6,19 +6,17 @@ import RatingStar from "./RatingStar";
 export default function FoodCard(props) {
   const [totalAvgRating, setTotalAvgRating] = useState(0);
 
-  var currentDate = new Date();
-
-  if (currentDate.getHours() >= 21) {
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
+  var currentDate = props.selectedDate;
 
   useEffect(() => {
-    const fetchCurrentAvg = async (meal) => {
+    const fetchCurrentAvg = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/timings/${currentDate.getFullYear()}/${
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/api/timings/${currentDate.getFullYear()}/${
             currentDate.getMonth() + 1
-          }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
+          }/${currentDate.getDate()}/${props.diningCourt}/${props.meal}`
         );
 
         if (response.ok) {
@@ -37,7 +35,11 @@ export default function FoodCard(props) {
                 ) / ratedDishes.length;
               console.log(totalAvgRatings);
               setTotalAvgRating(totalAvgRatings);
+            } else {
+              setTotalAvgRating(0);
             }
+          } else {
+            setTotalAvgRating(0);
           }
         } else {
           console.error(
@@ -50,11 +52,8 @@ export default function FoodCard(props) {
         console.error("Error fetching data:", error);
       }
     };
-    const meals = ["Breakfast", "Lunch", "Dinner"];
-    meals.forEach((meal) => {
-      fetchCurrentAvg(meal);
-    });
-  }, [props.diningCourt]);
+    fetchCurrentAvg();
+  }, [currentDate, props.meal]);
 
   return (
     <div className="card-cont">

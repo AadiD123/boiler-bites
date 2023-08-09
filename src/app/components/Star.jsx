@@ -22,7 +22,7 @@ const Star = (props) => {
     // fetch to get the latest dish info
     try {
       const response = await fetch(
-        `http://localhost:4000/api/dishes/${props.id}`
+        `${import.meta.env.VITE_API_BASE_URL}/api/dishes/${props.id}`
       );
 
       if (response.ok) {
@@ -41,7 +41,7 @@ const Star = (props) => {
     // Update the existing rating on the server
     try {
       const response = await fetch(
-        `http://localhost:4000/api/ratings/${ratingId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/ratings/${ratingId}`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +66,7 @@ const Star = (props) => {
         // Update the dish with the existing average rating
         try {
           const response = await fetch(
-            `http://localhost:4000/api/dishes/${props.id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/dishes/${props.id}`,
             {
               method: "PATCH",
               headers: {
@@ -98,13 +98,16 @@ const Star = (props) => {
     console.log("create new rating", props.id, props.avg, props.num);
     // Create a new rating on the server
     try {
-      const response = await fetch("http://localhost:4000/api/ratings/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ dish: props.id, stars: selectedRating }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/ratings/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ dish: props.id, stars: selectedRating }),
+        }
+      );
 
       if (response.ok) {
         const jsonResponse = await response.json();
@@ -125,7 +128,7 @@ const Star = (props) => {
     // Update the dish with the new average rating
     try {
       const response = await fetch(
-        `http://localhost:4000/api/dishes/${props.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/dishes/${props.id}`,
         {
           method: "PATCH",
           headers: {
