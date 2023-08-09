@@ -16,7 +16,9 @@ export default function FoodCard(props) {
     const fetchCurrentAvg = async (meal) => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/timings/${currentDate.getFullYear()}/${
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/api/timings/${currentDate.getFullYear()}/${
             currentDate.getMonth() + 1
           }/${currentDate.getDate()}/${props.diningCourt}/${meal}`
         );
