@@ -53,7 +53,7 @@ def scrape_date(date, driver, dcollection, tcollection):
                     for element in elements:
                         dish = element.text
                         existing_dish = dcollection.find_one(
-                            {"dish": dish, "diningCourt": location}
+                            {"dish": dish, "diningCourt": location, "station": station_text}
                         )
                         if not existing_dish:
                             new_dish_data = {

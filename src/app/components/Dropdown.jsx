@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
 function classNames(...classes) {
@@ -7,6 +7,19 @@ function classNames(...classes) {
 
 export default function TimingDropdown({ onMealChange }) {
   const [selectedItem, setSelectedItem] = useState("Breakfast");
+
+  useEffect(() => {
+    const currentHour = (new Date()).getHours();
+    if (currentHour < 10) {
+      setSelectedItem("Breakfast");
+    } else if (currentHour < 14) {
+      setSelectedItem("Lunch");
+    } else if (currentHour < 20) {
+      setSelectedItem("Dinner");
+    } else {
+      setSelectedItem("Breakfast");
+    }
+  }, []);
 
   return (
     <Menu as="div" className="relative inline-block text-left">
