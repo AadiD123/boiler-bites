@@ -3,12 +3,6 @@
 @tailwind utilities;
 
 :root {
-  height: 100vh;
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  /* font-family: "CustomFont";
-  src: url("src/app/assets/Acumin-BdItPro.otf"); */
   line-height: 1.5;
 
   /* color-scheme: light dark;
@@ -41,6 +35,7 @@ a:hover {
 
 h1 {
   font-style: italic;
+  font-weight: bold;
   font-size: 3.2em;
   line-height: 1.1;
 }

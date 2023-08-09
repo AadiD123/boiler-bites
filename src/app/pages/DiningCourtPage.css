@@ -18,12 +18,11 @@
   background-color: #cfb991;
   box-shadow: 1px 3px 5px 1px #808080;
   margin-bottom: 5em;
-  /* flex-wrap: wrap; */
 }
 
 @media screen and (max-width: 600px) {
   .diningCourt-food {
-    width: auto;
+    width: 95%;
     margin-bottom: 2em;
   }
 }

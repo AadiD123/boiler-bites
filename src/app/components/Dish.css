@@ -15,6 +15,10 @@
   max-width: 10em;
 }
 
+.dish-avgRating {
+  font-size: small;
+}
+
 @media screen and (max-width: 600px) {
   .dish-cont {
     font-size: small;
