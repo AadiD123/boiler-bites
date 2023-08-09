@@ -12,15 +12,24 @@
 }
 
 .dish-title {
-  max-width: 10em;
+  max-width: 15em;
 }
 
-.dish-avgRating {
+.dish-avg-rating {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+.dish-numReviews {
   font-size: small;
 }
 
 @media screen and (max-width: 600px) {
   .dish-cont {
     font-size: small;
+  }
+  .dish-title {
+    width: 10em;
   }
 }

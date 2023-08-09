@@ -49,7 +49,7 @@ export default function FoodCard(props) {
       }
     };
     fetchCurrentAvg();
-  }, [props.diningCourt, currentDate]);
+  }, [currentDate]);
 
   return (
     <div className="card-cont">

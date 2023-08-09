@@ -9,14 +9,16 @@ export default function Dish(props) {
     <div className="dish-cont">
       <div>
         <h4 className="dish-title">{props.dish}</h4>
-        <div>
-          <p className="dish-avgRating">Avg Rating</p>
+        <div className="dish-avg-rating">
           <RatingStar totalAvgRating={props.avg} />
+          <p className="dish-numReviews">({props.num})</p>
         </div>
       </div>
       {props.curr ? (
         <Star id={props.id} num={props.num} avg={props.avg} />
-      ): (<div></div>) }
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
