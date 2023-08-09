@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 const Datepicker = ({ onSelectDate }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  
+
   const handlePrevDay = () => {
     const newDate = new Date(selectedDate);
     newDate.setDate(selectedDate.getDate() - 1);
@@ -24,11 +24,6 @@ const Datepicker = ({ onSelectDate }) => {
       <button onClick={handlePrevDay}>
         <ArrowBack />
       </button>
-      {/* <input
-        type="date"
-        value={selectedDate.toISOString().split("T")[0]}
-        onChange={handleDateChange}
-      /> */}
       <p>{selectedDate.toDateString()}</p>
       <button onClick={handleNextDay}>
         <ArrowForward />
