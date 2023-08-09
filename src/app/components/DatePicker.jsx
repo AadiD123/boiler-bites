@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import "./Datepicker.css";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import React, { useState } from "react";
 
 const Datepicker = ({ onSelectDate }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -25,13 +27,18 @@ const Datepicker = ({ onSelectDate }) => {
 
   return (
     <div className="datepicker">
-      <button onClick={handlePrevDay}>&lt;</button>
-      <input
+      <button onClick={handlePrevDay}>
+        <ArrowBack />
+      </button>
+      {/* <input
         type="date"
-        value={selectedDate.toISOString().split('T')[0]}
+        value={selectedDate.toISOString().split("T")[0]}
         onChange={handleDateChange}
-      />
-      <button onClick={handleNextDay}>&gt;</button>
+      /> */}
+      <p>{selectedDate.toDateString()}</p>
+      <button onClick={handleNextDay}>
+        <ArrowForward />
+      </button>
     </div>
   );
 };
