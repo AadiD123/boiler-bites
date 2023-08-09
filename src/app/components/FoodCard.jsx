@@ -35,7 +35,11 @@ export default function FoodCard(props) {
                 ) / ratedDishes.length;
               console.log(totalAvgRatings);
               setTotalAvgRating(totalAvgRatings);
+            } else {
+              setTotalAvgRating(0);
             }
+          } else {
+            setTotalAvgRating(0);
           }
         } else {
           console.error(
@@ -49,7 +53,7 @@ export default function FoodCard(props) {
       }
     };
     fetchCurrentAvg();
-  }, [currentDate]);
+  }, [currentDate, props.meal]);
 
   return (
     <div className="card-cont">
