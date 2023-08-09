@@ -57,9 +57,10 @@ const Star = (props) => {
         console.log(`Updated user's rating: ${selectedRating}`);
         // Calculate new average rating
         avgRating =
-          avgRating * numRatings -
-          localStorage.getItem(ratingId) +
-          selectedRating / numRatings;
+          (avgRating * numRatings -
+            localStorage.getItem(ratingId) +
+            selectedRating) /
+          numRatings;
         // Update the rating in localStorage
         localStorage.setItem(ratingId, selectedRating.toString());
         console.log("new avgRating", avgRating);
