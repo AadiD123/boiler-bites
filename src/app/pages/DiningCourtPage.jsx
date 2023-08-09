@@ -6,10 +6,24 @@ import Dropdown from "../components/Dropdown";
 import DatePicker from "../components/DatePicker";
 
 export default function DiningCourtPage(props) {
-  // const [dishes, setDishes] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dishesByStation, setDishesByStation] = useState({});
-  const [meal, setMeal] = useState("Breakfast");
+  const [meal, setMeal] = useState("");
+
+  const isCurrentMeal = (meal, selectedDate) => {
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    const currentMeal = (currentHour >= 7 && currentHour < 10) ? "Breakfast" : 
+                        (currentHour >= 11 && currentHour) < 14 ? "Lunch" : "Dinner";
+  
+    const isSameDate = (
+      selectedDate.getDate() === currentDate.getDate() &&
+      selectedDate.getMonth() === currentDate.getMonth() &&
+      selectedDate.getFullYear() === currentDate.getFullYear()
+    );
+  
+    return isSameDate && meal === currentMeal;
+  };
 
   useEffect(() => {
     const currentHour = selectedDate.getHours();
@@ -22,9 +36,7 @@ export default function DiningCourtPage(props) {
       setMeal("Lunch");
     } else if (currentHour < 20) {
       setMeal("Dinner");
-    } else {
-      setMeal("Breakfast");
-    }
+    } 
   }, []);
 
   useEffect(() => {
@@ -84,7 +96,7 @@ export default function DiningCourtPage(props) {
 
   return (
     <div className="diningCourt-cont">
-      <FoodCard diningCourt={props.diningCourt} />
+      <FoodCard diningCourt={props.diningCourt} selectedDate={selectedDate} meal={meal}/>
 
       <Dropdown onMealChange={handleMealChange} />
 
@@ -111,6 +123,7 @@ export default function DiningCourtPage(props) {
                     dish={dish.dish}
                     num={dish.numRatings}
                     avg={dish.averageRating}
+                    curr={isCurrentMeal(meal, selectedDate)}
                   />
                 ))}
             </div>

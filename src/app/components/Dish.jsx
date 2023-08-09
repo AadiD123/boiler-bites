@@ -14,7 +14,9 @@ export default function Dish(props) {
           <RatingStar totalAvgRating={props.avg} />
         </div>
       </div>
-      <Star id={props.id} num={props.num} avg={props.avg} />
+      {props.curr ? (
+        <Star id={props.id} num={props.num} avg={props.avg} />
+      ): (<div></div>) }
     </div>
   );
 }
