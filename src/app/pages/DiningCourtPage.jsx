@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Dish from "../components/Dish";
 import Dropdown from "../components/Dropdown";
 import DatePicker from "../components/DatePicker";
-import DatePicker from "../components/DatePicker";
 
 export default function DiningCourtPage(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
