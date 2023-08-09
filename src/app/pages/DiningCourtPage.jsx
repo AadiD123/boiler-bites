@@ -44,7 +44,7 @@ export default function DiningCourtPage(props) {
     if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
-          `http://localhost:4000/api/timings/${selectedDate.getFullYear()}/${
+          `${import.meta.env.VITE_API_BASE_URL}/${selectedDate.getFullYear()}/${
             selectedDate.getMonth() + 1
           }/${selectedDate.getDate()}/${props.diningCourt}/${meal}`
         );
