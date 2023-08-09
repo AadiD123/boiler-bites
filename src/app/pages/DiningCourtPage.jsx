@@ -7,18 +7,28 @@ import DatePicker from "../components/DatePicker";
 
 export default function DiningCourtPage(props) {
   // const [dishes, setDishes] = useState([]);
-  const [meal, setMeal] = useState("Breakfast");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dishesByStation, setDishesByStation] = useState({});
-
-  if (selectedDate.getHours() >= 21) {
-    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
-  }
-  // if (currentDate.getHours() >= 21) {
-  //   currentDate.setDate(currentDate.getDate() + 1);
-  // }
+  const [meal, setMeal] = useState("Breakfast");
 
   useEffect(() => {
+    const currentHour = selectedDate.getHours();
+    if (currentHour >= 21) {
+      setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+    }
+    if (currentHour < 10) {
+      setMeal("Breakfast");
+    } else if (currentHour < 14) {
+      setMeal("Lunch");
+    } else if (currentHour < 20) {
+      setMeal("Dinner");
+    } else {
+      setMeal("Breakfast");
+    }
+  }, []);
+
+  useEffect(() => {
+
     if (meal !== "") {
       const fetchCurrentFood = async () => {
         const response = await fetch(
