@@ -98,7 +98,7 @@ const Star = (props) => {
     console.log("create new rating", props.id, props.avg, props.num);
     // Create a new rating on the server
     try {
-      const response = await fetch("http://localhost:4000/api/ratings/", {
+      const response = await fetch(`http://localhost:4000/api/ratings/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
