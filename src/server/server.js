@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 const ratingRoutes = require("./routes/ratings");
 const dishRoutes = require("./routes/dishes");
 const timingRoutes = require("./routes/timings");
@@ -25,6 +26,12 @@ app.use((req, res, next) => {
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/dishes", dishRoutes);
 app.use("/api/timings", timingRoutes);
+
+// production script
+app.use(express.static("../app/build"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../app/build/index.html"));
+});
 
 // connect to db
 mongoose

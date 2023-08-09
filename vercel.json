@@ -1,0 +1,11 @@
+{
+  "buildCommand": "yarn build",
+  "outputDirectory": "src/app/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/src/server/(.*)",
+      "destination": "/src/server/index.js"
+    }
+  ]
+}
