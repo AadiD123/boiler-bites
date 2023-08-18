@@ -7,6 +7,7 @@ import dotenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import datetime
+import mysql.connector
 
 foodLocations = [
     "Ford",
@@ -101,19 +102,19 @@ def scrape_date(date, driver, dcollection, tcollection):
 
 
 def main():
-    dotenv.load_dotenv()
+    # dotenv.load_dotenv()
 
-    uri = os.getenv("MONGODB_URI")
-    client = MongoClient(uri, server_api=ServerApi("1"))
-    try:
-        client.admin.command("ping")
-        print("Pinged your deployment. You successfully connected to MongoDB!")
-    except Exception as e:
-        print(e)
+    # uri = os.getenv("MONGODB_URI")
+    # client = MongoClient(uri, server_api=ServerApi("1"))
+    # try:
+    #     client.admin.command("ping")
+    #     print("Pinged your deployment. You successfully connected to MongoDB!")
+    # except Exception as e:
+    #     print(e)
 
-    database = client["test"]
-    dcollection = database["dishes"]
-    tcollection = database["timings"]
+    # database = client["test"]
+    # dcollection = database["dishes"]
+    # tcollection = database["timings"]
 
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
