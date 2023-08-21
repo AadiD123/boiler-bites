@@ -50,9 +50,11 @@ def scrape_date(date, driver, connection):
             if stations:
                 for station in stations:
                     station_text = station.find_element(By.CLASS_NAME, "station-name").text
-                    elements = station.find_elements(By.CLASS_NAME, "station-item-text")
-                    for element in elements:
-                        dish = element.text
+                    items = station.find_elements(By.CLASS_NAME, "station-item")
+                    for item in items:
+                        dish = item.find_element(By.CLASS_NAME, "station-item-text").text
+                        item_link = item.get_attribute("href")
+                        print(item_link)
                         query = (
                             "SELECT id FROM dishes WHERE dish=%s AND diningCourt=%s AND station=%s"
                         )
