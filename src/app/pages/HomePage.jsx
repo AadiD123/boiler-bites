@@ -10,7 +10,9 @@ export default function HomePage() {
   useEffect(() => {
     const currentHour = selectedDate.getHours();
     if (currentHour >= 21) {
-      setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+      setSelectedDate(
+        new Date(selectedDate.setDate(selectedDate.getDate() + 1))
+      );
     }
     if (currentHour < 10) {
       setMeal("Breakfast");
@@ -18,14 +20,14 @@ export default function HomePage() {
       setMeal("Lunch");
     } else if (currentHour < 20) {
       setMeal("Dinner");
-    } 
+    }
   }, []);
 
   return (
     <div className="home">
       <div className="home-trending-cont">
-        <h4 className="home-trending">Currently Trending</h4>
-        <img src="/assets/1bowl.png" />
+        <h4 className="home-trending">Today's best</h4>
+        <img src="/assets/Earhart.png" />
       </div>
       <div className="home-break-cont">
         <hr className="home-line" />
@@ -34,23 +36,43 @@ export default function HomePage() {
       </div>
       <div className="home-card-cont">
         <Link to="/earhart">
-          <FoodCard diningCourt="Earhart" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="Earhart"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
 
         <Link to="/ford">
-          <FoodCard diningCourt="Ford" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="Ford"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
 
         <Link to="/hillenbrand">
-          <FoodCard diningCourt="Hillenbrand" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="Hillenbrand"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
 
         <Link to="/wiley">
-          <FoodCard diningCourt="Wiley" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="Wiley"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
 
         <Link to="/windsor">
-          <FoodCard diningCourt="Windsor" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="Windsor"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
       </div>
       <div className="home-break-cont">
@@ -60,16 +82,32 @@ export default function HomePage() {
       </div>
       <div className="home-card-cont">
         <Link to="/1bowl">
-          <FoodCard diningCourt="1bowl" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="1Bowl"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
         <Link to="/petesza">
-          <FoodCard diningCourt="petes za" selectedDate={selectedDate} meal={meal}/>
+          <FoodCard
+            diningCourt="Pete's Za"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
         <Link to="/theburrow">
-          <FoodCard diningCourt="the burrow" selectedDate={selectedDate} meal={meal} />
+          <FoodCard
+            diningCourt="the burrow"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
         <Link to="/thegatheringplace">
-          <FoodCard diningCourt="the gathering place" selectedDate={selectedDate} meal={meal} />
+          <FoodCard
+            diningCourt="The%20Gathering%20Place"
+            selectedDate={selectedDate}
+            meal={meal}
+          />
         </Link>
       </div>
     </div>
