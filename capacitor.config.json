@@ -3,8 +3,6 @@
   "appName": "Boiler Bites",
   "webDir": "dist",
   "server": {
-    "androidScheme": "https",
-    "url": "http://100.69.104.60",
-    "clearText": true
+    "url": "http://100.69.110.42:8080"
   }
 }
